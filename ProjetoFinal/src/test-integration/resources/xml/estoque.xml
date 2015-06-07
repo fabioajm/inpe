@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+<produto id="1" nome="Filme" preco="250.0" />
+<produto id="2" nome="Celular" preco="500.0" />
+<estoque/>
+</dataset>

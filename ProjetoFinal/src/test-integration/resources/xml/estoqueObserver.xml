@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+<carrinhocompras_produtos />
+<carrinhocompras />
+<produto id="1" nome="Filme" preco="250.0" />
+<estoque id="1" produto_id="1" quantidade="10" />
+</dataset>
