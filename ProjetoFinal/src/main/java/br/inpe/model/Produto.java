@@ -14,6 +14,7 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String nome;
+	private String descricao;
 	private double preco;
 	@Lob
 	@Column(length=10000)
@@ -41,6 +42,14 @@ public class Produto {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public double getPreco() {

@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.inpe.model.Customer;
 import br.inpe.repository.MovieRepository;
+import br.inpe.service.ProdutoService;
 
 @Controller
 @Transactional
 public class LoginController {
 	
 	@Autowired
-	private MovieRepository movieRepository;
+	private ProdutoService produtoService;
 
 	@RequestMapping("efetuarLogin")
 	public String efetuarLogin(Customer customer, HttpSession session){
@@ -31,7 +32,7 @@ public class LoginController {
 	
 	@RequestMapping("/index")
 	public String index(Model model){
-		model.addAttribute("movies", movieRepository.findAll());
+		model.addAttribute("produtos", produtoService.findAll());
 		return "index";
 	}
 	

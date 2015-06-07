@@ -80,19 +80,19 @@
 		<div class="wrapper">
 			<ul class="properties_list">
 			
-				<c:forEach items="${movies}" var="movie">
+				<c:forEach items="${produtos}" var="produto">
 				
 					<li>
 							<a href="#">
-								<img src="/ProjetoFinal/movie/image?id=${movie.id}" alt="" title="" class="property_img"/>
+								<img src="/ProjetoFinal/produto/image?id=${produto.id}" alt="" title="" class="property_img"/>
 							</a>
 							<span class="price">$2500</span>
 							<div class="property_details">
 								<h1>
-									<a href="#">${movie.title}</a>
+									<a href="#">${produto.nome}</a>
 								</h1>
-								<h2>${movie.description } </h2>
-								<a href="remove?id=${movie.id}"><h2>remover</h2></a>
+								<h2>${produto.descricao } </h2>
+								<a href="remove?id=${produto.id}"><h2>remover</h2></a>
 								
 							</div>
 						</li>
