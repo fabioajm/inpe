@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.inpe.model.Produto;
+import br.inpe.service.EstoqueService;
 import br.inpe.service.ProdutoService;
 
 
@@ -25,6 +26,9 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoService produtoService;
+	
+	@Autowired
+	private EstoqueService estoqueService;
 
 	@RequestMapping("/list")
 	public void execute(Model model) {
@@ -42,11 +46,23 @@ public class ProdutoController {
 	public String newproduto(Model model){
 		return "produto/create";
 	}
+	
+	@RequestMapping("/update")
+	public String updateProduto(Produto produto, Model model){
+		produto = produtoService.findById(produto.getId());
+		model.addAttribute("produto",produto);
+		model.addAttribute("qtd", estoqueService.getQuantidade(produto));
+		return "produto/update";
+	}
 
 	@RequestMapping("/save")
-	public String create(Produto produto, @RequestParam(value = "image", required = false) MultipartFile image, HttpServletRequest request) throws IOException {
-		produto.setPoster(image.getBytes());
-		produtoService.save(produto);
+	public String create(Produto produto, Integer qtd,
+			@RequestParam(value = "image", required = false) MultipartFile image, HttpServletRequest request) throws IOException {
+		if(image.getBytes() != null){
+			produto.setPoster(image.getBytes());
+		}
+		produtoService.saveOrUpdate(produto);
+		estoqueService.addEstoque(produto, qtd);
 		return "forward:list";
 	}
 

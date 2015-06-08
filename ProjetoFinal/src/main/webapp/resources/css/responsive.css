@@ -459,7 +459,7 @@ header nav .login_btn:hover{
 
 .conteudo{
     padding: 100px 0;
-    height: 300px;
+    height: auto!important;
 }
 
 

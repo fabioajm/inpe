@@ -3,6 +3,7 @@ package br.inpe.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,14 +17,25 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
+	@Column(unique=true, nullable=false)
 	private String login;
+	@Column(nullable=false)
 	private String senha;
 	@ElementCollection
-	private List<String> preferencias;
+	private List<String> preferencias = new ArrayList<String>();
 
+
+	public Usuario(){
+	}
+	
 	public Usuario(String login) {
 		this.login = login;
-		this.preferencias = new ArrayList<String>();
+	}
+
+	public Usuario(String nome, String login, String senha) {
+		this.nome = nome;
+		this.login = login;
+		this.senha = senha;
 	}
 
 	public Long getId() {

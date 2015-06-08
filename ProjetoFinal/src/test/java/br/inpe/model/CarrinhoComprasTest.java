@@ -18,33 +18,37 @@ public class CarrinhoComprasTest {
 
 	@Test
 	public void carrinhoVazio() {
-		assertEquals(0.0, carrinho.total(), 0.001);
+		assertEquals(0.0, carrinho.getTotal(), 0.001);
+		assertEquals(0, carrinho.getQuantidadeProdutos());
 	}
 
 	@Test
 	public void adicionaUmProduto() {
 		Produto produto = new Produto(1, "Filme", 250.0);
 		carrinho.addProduto(produto, 1);
-		assertEquals(250.0, carrinho.total(), 0.001);
+		assertEquals(250.0, carrinho.getTotal(), 0.001);
 		assertEquals(1, carrinho.getQuantidade(produto));
+		assertEquals(1, carrinho.getQuantidadeProdutos());
 	}
 
 	@Test
-	public void adionaProdutosTiposDiferentes() {
+	public void adicionaProdutosTiposDiferentes() {
 		Produto p1 = new Produto(1, "Filme", 250.0);
 		Produto p2 = new Produto(2, "Livro", 80.0);
 		carrinho.addProduto(p1, 1);
 		carrinho.addProduto(p2, 1);
-		assertEquals(330.0, carrinho.total(), 0.001);
+		assertEquals(330.0, carrinho.getTotal(), 0.001);
 		assertEquals(1, carrinho.getQuantidade(p1));
+		assertEquals(2, carrinho.getQuantidadeProdutos());
 	}
 
 	@Test
 	public void adicionaVariosProdutosMesmoTipo() {
 		Produto produto = new Produto(1, "Filme", 250.0);
 		carrinho.addProduto(produto, 4);
-		assertEquals(1000.0, carrinho.total(), 0.001);
+		assertEquals(1000.0, carrinho.getTotal(), 0.001);
 		assertEquals(4, carrinho.getQuantidade(produto));
+		assertEquals(4, carrinho.getQuantidadeProdutos());
 	}
 
 	@Test
@@ -52,7 +56,7 @@ public class CarrinhoComprasTest {
 		Produto produto = new Produto(1, "Filme", 250.0);
 		carrinho.addProduto(produto, 3);
 		carrinho.addProduto(produto, 2);
-		assertEquals(1250.0, carrinho.total(), 0.001);
+		assertEquals(1250.0, carrinho.getTotal(), 0.001);
 		assertEquals(5, carrinho.getQuantidade(produto));
 	}
 	
@@ -61,7 +65,7 @@ public class CarrinhoComprasTest {
 		Produto produto = new Produto(1, "Filme", 250.0);
 		carrinho.addProduto(produto, 1);
 		carrinho.removeProduto(produto,1);
-		assertEquals(0.0, carrinho.total(), 0.001);
+		assertEquals(0.0, carrinho.getTotal(), 0.001);
 		assertEquals(0, carrinho.getQuantidade(produto));
 	}
 	
@@ -70,7 +74,7 @@ public class CarrinhoComprasTest {
 		Produto produto = new Produto(1, "Filme", 250.0);
 		carrinho.addProduto(produto, 5);
 		carrinho.removeProduto(produto, 3);
-		assertEquals(500.0, carrinho.total(), 0.001);
+		assertEquals(500.0, carrinho.getTotal(), 0.001);
 		assertEquals(2, carrinho.getQuantidade(produto));
 	}
 	@Test
@@ -78,7 +82,7 @@ public class CarrinhoComprasTest {
 		Produto produto = new Produto(1, "Filme", 250.0);
 		carrinho.addProduto(produto, 3);
 		carrinho.removeProduto(produto, 4);
-		assertEquals(0.0, carrinho.total(), 0.001);
+		assertEquals(0.0, carrinho.getTotal(), 0.001);
 		assertEquals(0, carrinho.getQuantidade(produto));
 	}
 	
@@ -113,6 +117,7 @@ public class CarrinhoComprasTest {
 		co.verficarNotificacaoRemocao(produto, 3);
 	}
 	
+	
 	@Test
 	public void notificarRemocaoMaiorQueOQueTem(){
 		Produto produto = new Produto(1, "Filme", 250.0);
@@ -122,4 +127,30 @@ public class CarrinhoComprasTest {
 		carrinho.removeProduto(produto, 8);
 		co.verficarNotificacaoRemocao(produto, 5);
 	}
+	
+	@Test
+	public void esvaziarCarrinho(){
+		Produto p1 = new Produto(1, "Filme", 250.0);
+		Produto p2 = new Produto(2, "Livro", 80.0);
+		carrinho.addProduto(p1, 4);
+		carrinho.addProduto(p2, 5);
+		
+		carrinho.esvaziar();
+		
+		assertEquals(0.0, carrinho.getTotal(), 0.001);
+		assertEquals(0, carrinho.getQuantidade(p1));
+		assertEquals(0, carrinho.getQuantidadeProdutos());
+	}
+	
+	@Test
+	public void notificarRemocaoEsvaziarCarrinho(){
+		Produto produto = new Produto(1, "Filme", 250.0);
+		MockCarrinhoObserver co = new MockCarrinhoObserver();
+		carrinho.adicionarObserver(co);
+		carrinho.addProduto(produto, 5);
+		carrinho.esvaziar();
+		co.verficarNotificacaoRemocao(produto, 5);
+	}
+	
+	
 }

@@ -55,7 +55,7 @@ public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4Spring
 		
 		assertTrue(u.getPreferencias().contains("Filme"));
 		assertEquals(8, estoqueService.getQuantidade(p));
-		assertEquals(500.0, cc.total(), 0.001);
+		assertEquals(500.0, cc.getTotal(), 0.001);
 	}
 	@Test
 	public void carrinhoComDoisProdutosEUsuario(){
@@ -88,7 +88,7 @@ public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4Spring
 		
 		assertTrue(u.getPreferencias().contains("Filme"));
 		assertEquals(8, estoqueService.getQuantidade(p));
-		assertEquals(1000.0, cc.total(), 0.001);
+		assertEquals(1000.0, cc.getTotal(), 0.001);
 	}
 
 

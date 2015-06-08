@@ -2,8 +2,8 @@
 <head>
 	<title>Projeto Final</title>
 	<meta charset="utf-8">
-	<meta name="author" content="pixelhint.com">
-	<meta name="description" content="La casa free real state fully responsive html5/css3 home page website template"/>
+	<meta name="author" content="fabio">
+	<meta name="description" content="Projeto final"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 	
 	<link rel="stylesheet" type="text/css" href="<c:url value="/css/reset.css"/>">

@@ -2,17 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="pt_BR">
 <head>
-	<title>Projeto Final</title>
-	<meta charset="utf-8">
-	<meta name="author" content="pixelhint.com">
-	<meta name="description" content="La casa free real state fully responsive html5/css3 home page website template"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
-	
-	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" type="text/css" href="css/responsive.css">
-
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
+	<jsp:include page="head.jsp" />
 </head>
 <body>
 
@@ -23,13 +13,20 @@
 				<a href="#" class="hamburger"></a>
 				<nav>
 					<ul>
-						<li><a href="#">Compre</a></li>
+						<li><a href="#listings">Compre</a></li>
 						<li><a href="#">Alugue</a></li>
-						<li><a href="#">Doe</a></li>
 						<li><a href="#">Sobre</a></li>
 						<li><a href="#">Contato</a></li>
 					</ul>
-					<a href="#" class="login_btn">Login</a>
+					<c:if test="${usuario == null }">
+						<a href="<c:url value="/login"/>" class="login_btn">Login</a>
+					</c:if>
+					<c:if test="${usuario != null }">
+						<a href="<c:url value="/logout"/>" class="login_btn">Logout</a>
+					</c:if>
+					<c:if test="${carrinho != null }">
+						<a href="<c:url value="/carrinho/carrinho"/>" class="login_btn">Meu carrinho (${carrinho.quantidadeProdutos})</a>
+					</c:if>
 				</nav>
 			</div>
 		</header><!--  end header section  -->
@@ -76,7 +73,7 @@
 	</section><!--  end search section  -->
 
 
-	<section class="listings">
+	<section class="listings" id="listings">
 		<div class="wrapper">
 			<ul class="properties_list">
 			
@@ -84,9 +81,9 @@
 				
 					<li>
 							<a href="#">
-								<img src="/ProjetoFinal/produto/image?id=${produto.id}" alt="" title="" class="property_img"/>
+								<img src="<c:url value="/produto/image?id=${produto.id}"/>" alt="" title="" class="property_img"/>
 							</a>
-							<span class="price">$2500</span>
+							<span class="price">${produto.preco}</span>
 							<div class="property_details">
 								<h1>
 									<a href="#">${produto.nome}</a>
@@ -94,22 +91,21 @@
 								<h2>${produto.descricao } </h2>
 								<a href="remove?id=${produto.id}"><h2>remover</h2></a>
 								
+								<form action="<c:url value="/carrinho/adicionar"/>">
+									<input type="hidden" value="${produto.id}" name="id" />
+									Qtd:
+									<select name="qtd" >
+									<c:forEach begin="1" end="10" var="valor">
+										<option value="${valor }">${valor }</option>
+									</c:forEach>
+									</select>
+									<input type="submit" value="adicionar">
+								</form>
+								
 							</div>
 						</li>
 				</c:forEach>
-				<li>
-					<a href="#">
-						<img src="img/property_1.jpg" alt="" title="" class="property_img"/>
-					</a>
-					<span class="price">$2500</span>
-					<div class="property_details">
-						<h1>
-							<a href="#">Fuisque dictum tortor at purus libero</a>
-						</h1>
-						<h2>2 kitchens, 2 bed, 2 bath... <span class="property_size">(288ftsq)</span></h2>
-					</div>
-				</li>
-				
+								
 			</ul>
 			<div class="more_listing">
 				<a href="#" class="more_listing_btn">Ver mais resultados</a>

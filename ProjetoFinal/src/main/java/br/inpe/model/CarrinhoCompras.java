@@ -1,9 +1,12 @@
 package br.inpe.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -22,9 +25,7 @@ public class CarrinhoCompras {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	/*@OneToMany
-	@JoinTable
-	@MapKeyColumn*/
+
 	@ElementCollection
 	@Column(name="quantidade")
 	private Map<Produto, Integer> produtos = new HashMap<>();
@@ -32,6 +33,8 @@ public class CarrinhoCompras {
 	private Usuario usuario;
 	@Transient
 	private List<CarrinhoObserver> observer = new ArrayList<>();
+
+	private Iterator<Entry<Produto, Integer>> iterator;
 	
 	
 
@@ -40,10 +43,10 @@ public class CarrinhoCompras {
 	}
 
 	public Map<Produto, Integer> getProdutos() {
-		return produtos;
+		return Collections.unmodifiableMap(produtos);
 	}
 
-	public double total() {
+	public double getTotal() {
 		double total = 0;
 		for (Produto p : produtos.keySet()) {
 			total += p.getPreco() * produtos.get(p);
@@ -56,10 +59,10 @@ public class CarrinhoCompras {
 			quantidade += produtos.get(produto);
 		}
 		this.produtos.put(produto, quantidade);
-		for (CarrinhoObserver carrinhoObserver : observer) {
-			carrinhoObserver.notificarAdicao(produto, quantidade);
-		}
+		
+		notificarObserversAdicao(produto, quantidade);
 	}
+
 
 	public int getQuantidade(Produto produto) {
 		if (produtos.containsKey(produto)) {
@@ -76,13 +79,32 @@ public class CarrinhoCompras {
 		} else {
 			produtos.put(produto, qtdCorrente - quantidade);
 		}
-		for (CarrinhoObserver carrinhoObserver : observer) {
-			carrinhoObserver.notificarRemocao(produto, quantidade);
-		}
+		notificarObserversRemocao(produto, quantidade);
 	}
 
 	public void adicionarObserver(CarrinhoObserver co) {
 		observer.add(co);
+	}
+
+	private void notificarObserversAdicao(Produto produto, int quantidade) {
+		for (CarrinhoObserver carrinhoObserver : observer) {
+			carrinhoObserver.notificarAdicao(produto, quantidade);
+		}
+	}
+	
+	private void notificarObserversRemocao(Produto produto, int quantidade) {
+		for (CarrinhoObserver carrinhoObserver : observer) {
+			carrinhoObserver.notificarRemocao(produto, quantidade);
+		}
+	}
+	
+	public int getQuantidadeProdutos() {
+		return produtos.values().stream().mapToInt(value -> value ).sum();
+	}
+
+	public void esvaziar() {
+		produtos.forEach((k, v) -> notificarObserversRemocao(k,v));
+		produtos.clear();
 	}
 
 }

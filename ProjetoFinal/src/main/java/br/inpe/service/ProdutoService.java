@@ -20,6 +20,14 @@ public class ProdutoService {
 	public void save(Produto p){
 		produtoRepository.save(p);
 	}
+	
+	public void saveOrUpdate(Produto p){
+		if(p.getId() == null){
+			produtoRepository.save(p);
+		}else {
+			produtoRepository.update(p);
+		}
+	}
 
 	public List<Produto> findAll() {
 		return produtoRepository.findAll();
