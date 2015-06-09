@@ -152,5 +152,9 @@ public class CarrinhoComprasTest {
 		co.verficarNotificacaoRemocao(produto, 5);
 	}
 	
+	@Test
+	public void adicionarPagamento(){
+		
+	}
 	
 }

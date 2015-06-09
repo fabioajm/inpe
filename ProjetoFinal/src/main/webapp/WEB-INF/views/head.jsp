@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
-	<title>Projeto Final</title>
+	<title>Projeto Final - ${param.title}</title>
 	<meta charset="utf-8">
 	<meta name="author" content="fabio">
 	<meta name="description" content="Projeto final"/>

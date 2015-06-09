@@ -31,7 +31,7 @@ public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4Spring
 	private CarrinhoComprasService ccService;
 	
 	@Test
-	public void carrinhoComEstoqueEUsuario(){
+	public void carrinhoComProdutoEUsuario(){
 		//cria objetos
 		Produto p = new Produto();
 		p.setNome("Filme");

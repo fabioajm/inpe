@@ -22,6 +22,7 @@ public class IndexPage {
 		btLogin.click();
 		return new LooginPage(driver);
 	}
+	
 
 	public boolean usuarioLogado(String nome) {
 		return driver.getPageSource().contains(nome);

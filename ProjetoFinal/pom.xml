@@ -8,6 +8,38 @@
 	<build>
 		<finalName>ProjetoFinal</finalName>
 		<plugins>
+		<!--  <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>add-source</id>
+                    <phase>generate-sources</phase>
+                    <goals>
+                        <goal>add-source</goal>
+                    </goals>
+                    <configuration>
+                        <sources>
+                            <source>src/main/java</source>
+                        </sources>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>add-test-source</id>
+                    <phase>generate-test-sources</phase>
+                    <goals>
+                        <goal>add-test-source</goal>
+                    </goals>
+                    <configuration>
+                        <sources>
+                            <source>src/test/java</source>
+                            <source>src/test-integration/java</source>
+                            <source>src/test-selenium/java</source>
+                        </sources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -32,7 +64,7 @@
 		<commons.version>0.0.1-SNAPSHOT</commons.version>
 		<tomcat.version>8.0.21</tomcat.version>
 		<junit.version>4.11</junit.version>
-		<slf4j.version>1.7.7</slf4j.version>
+		<slf4j.version>1.7.12</slf4j.version>
 		<jstl.version>1.2</jstl.version>
 		<tiles.version>3.0.1</tiles.version>
 		<spring.version>4.0.6.RELEASE</spring.version>
@@ -199,6 +231,20 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		
+		
 
 		<dependency>
 			<groupId>cglib</groupId>

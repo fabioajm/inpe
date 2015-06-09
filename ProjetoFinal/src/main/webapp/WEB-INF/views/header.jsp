@@ -1,8 +1,14 @@
+	<!DOCTYPE html>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<section class="hero2">
 		<header>
 			<div class="wrapper">
-				<a href="<c:url value="/index"/>"><img src="<c:url value="/img/logo.png"/>" class="logo" alt="" titl=""/></a>
+			<div align="right"  style="padding:10px">
+				<c:if test="${usuario != null }">
+					<label style="color:#fff;">Olá, ${usuario.nome}</label> 
+				</c:if>
+				</div>
+				<a href="<c:url value="/index"/>"><img src="<c:url value="/img/logo.png"/>" class="logo" alt="" title=""/></a>
 				<a href="#" class="hamburger"></a>
 				<nav>
 					<ul>
