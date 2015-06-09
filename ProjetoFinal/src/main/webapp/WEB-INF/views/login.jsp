@@ -21,7 +21,7 @@
 				
 		        Email: <input  type="email"  name="login" ><br />
 				Senha: <input type="password" name="senha" />  <br />      
-		        <input type="submit" value="Enviar">
+		        <input type="submit" id="enviar" value="Enviar">
 		    </form>
 		    </fieldset>
 		    <fieldset>
@@ -31,7 +31,7 @@
 		        Nome: <input type="text" name="nome"><br />
 		        Email: <input  type="email"  name="login" ><br />
 				Senha: <input type="password" name="senha" />  <br />      
-		        <input type="submit" value="Salvar">
+		        <input type="submit" id="salvar" value="Salvar">
 		    </form>
 		    </fieldset>
 		    

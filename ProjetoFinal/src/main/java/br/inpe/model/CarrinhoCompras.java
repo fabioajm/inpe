@@ -3,10 +3,8 @@ package br.inpe.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -33,10 +31,6 @@ public class CarrinhoCompras {
 	private Usuario usuario;
 	@Transient
 	private List<CarrinhoObserver> observer = new ArrayList<>();
-
-	private Iterator<Entry<Produto, Integer>> iterator;
-	
-	
 
 	public Long getId() {
 		return id;

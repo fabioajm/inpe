@@ -19,7 +19,7 @@
 						<li><a href="#">Contato</a></li>
 					</ul>
 					<c:if test="${usuario == null }">
-						<a href="<c:url value="/login"/>" class="login_btn">Login</a>
+						<a href="<c:url value="/login"/>" id="login"  class="login_btn">Login</a>
 					</c:if>
 					<c:if test="${usuario != null }">
 						<a href="<c:url value="/logout"/>" class="login_btn">Logout</a>

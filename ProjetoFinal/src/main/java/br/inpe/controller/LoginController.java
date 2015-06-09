@@ -34,8 +34,10 @@ public class LoginController {
 	public String logout(HttpSession session){
 		session.removeAttribute("usuario");
 		CarrinhoCompras cc=  (CarrinhoCompras) session.getAttribute("carrinho");
-		cc.esvaziar();
-		session.removeAttribute("carrinho");
+		if(cc != null){
+			cc.esvaziar();
+			session.removeAttribute("carrinho");
+		}
 		return "redirect:index";
 	}
 	
