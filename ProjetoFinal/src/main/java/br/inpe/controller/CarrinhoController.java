@@ -10,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.inpe.model.CarrinhoCompras;
 import br.inpe.model.Produto;
 import br.inpe.model.Usuario;
-import br.inpe.observer.AtualizaEstoqueObserver;
-import br.inpe.observer.PreferenciasUsuarioObserver;
-import br.inpe.service.EstoqueService;
+import br.inpe.service.CarrinhoComprasService;
 import br.inpe.service.ProdutoService;
-import br.inpe.service.UsuarioService;
 
 @Controller
 @RequestMapping("/carrinho")
@@ -22,10 +19,7 @@ import br.inpe.service.UsuarioService;
 public class CarrinhoController {
 	
 	@Autowired
-	private EstoqueService estoqueService;
-	
-	@Autowired
-	private UsuarioService usuarioService;
+	private CarrinhoComprasService carrinhoComprasService;
 	
 	@Autowired
 	private ProdutoService produtoService;
@@ -38,10 +32,7 @@ public class CarrinhoController {
 		}
 		CarrinhoCompras cc = (CarrinhoCompras) session.getAttribute("carrinho");
 		if(cc == null){
-			u = usuarioService.find(u.getId());
-			cc = new CarrinhoCompras();
-			cc.adicionarObserver(new AtualizaEstoqueObserver(estoqueService));
-			cc.adicionarObserver(new PreferenciasUsuarioObserver(u));
+			cc = carrinhoComprasService.criarCarrinho(u);
 		}
 		produto = produtoService.findById(produto.getId());
 		cc.addProduto(produto, qtd);
@@ -49,6 +40,7 @@ public class CarrinhoController {
 		
 		return "redirect:/index";
 	}
+	
 	@RequestMapping("/remove")
 	public String remove(Produto produto, Integer qtd, HttpSession session) {
 		CarrinhoCompras cc = (CarrinhoCompras) session.getAttribute("carrinho");
