@@ -38,17 +38,17 @@ public class SeleniumTest {
 	}
 	
 	@Test
-//	@DatabaseSetup("/xml/usuario.xml")
+	@DatabaseSetup("/xml/usuario.xml")
 	public void cadastrarNovoUsuario(){
 		index.visita().logar().cadastra("Fabio Alves","fabio_ajm@yahoo.com.br","123");
-		assertTrue(index.usuarioLogado("Logout")); 
+		assertTrue(index.usuarioLogado("Fabio Alves")); 
 	}
 	
 	@Test
-//	@DatabaseSetup("/xml/usuario.xml")
+	@DatabaseSetup("/xml/usuario.xml")
 	public void logar(){
 		index.visita().logar().efetuarLogin("fab.ajm@gmail.com","123");
-		assertTrue(index.usuarioLogado("Logout")); 
+		assertTrue(index.usuarioLogado("Fabio Oliveira")); 
 	}
 	
 	@After

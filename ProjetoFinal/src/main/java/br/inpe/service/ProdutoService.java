@@ -25,12 +25,12 @@ public class ProdutoService {
 		if(p.getId() == null){
 			produtoRepository.save(p);
 		}else {
-			produtoRepository.update(p);
+			produtoRepository.merger(p);
 		}
 	}
 
 	public List<Produto> findAll() {
-		return produtoRepository.buscarProdutosComEstoque();
+		return produtoRepository.buscarProdutosEmEstoque();
 	}
 
 	public void remove(Produto produto) {

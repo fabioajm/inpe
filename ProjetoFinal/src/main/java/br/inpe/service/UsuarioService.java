@@ -1,39 +1,17 @@
 package br.inpe.service;
 
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import br.inpe.exception.UsuarioException;
 import br.inpe.model.Usuario;
-import br.inpe.repository.UsuarioRepository;
 
-@Service
-@Transactional(dontRollbackOn=UsuarioException.class)
-public class UsuarioService {
+public interface UsuarioService {
 
-	@Autowired
-	private UsuarioRepository usuarioRepository;
+	public abstract void save(Usuario u);
 
-	public void save(Usuario u) {
-			if(usuarioRepository.buscarPorLogin(u.getLogin()) == null){
-				usuarioRepository.save(u);
-			}else{
-				throw new UsuarioException("Login já existente");
-			}
-	}
+	public abstract Usuario buscarPorLogin(String login);
 
-	public Usuario buscarPorLogin(String login) {
-		return usuarioRepository.buscarPorLogin(login);
-	}
+	public abstract Usuario logar(Usuario u);
 
-	public Usuario logar(Usuario u) {
-		return usuarioRepository.logar(u);
-	}
+	public abstract Usuario find(Long id);
 
-	public Usuario find(Long id) {
-		return usuarioRepository.findById(id);
-	}
+	public abstract void merge(Usuario usuario);
 
 }

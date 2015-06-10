@@ -1,5 +1,6 @@
 package br.inpe.model;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ public class Produto {
 	@Column(length=500)
 	private String descricao;
 	private double preco;
-	@Lob
+//	@Lob
 	@Column(length=10000)
 	private byte[] poster;
 

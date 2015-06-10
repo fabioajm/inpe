@@ -4,21 +4,37 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import br.inpe.observer.AtualizaEstoqueObserver;
 import br.inpe.observer.PreferenciasUsuarioObserver;
 import br.inpe.service.CarrinhoComprasService;
 import br.inpe.service.EstoqueService;
 import br.inpe.service.ProdutoService;
+import br.inpe.service.UsuarioService;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations  = {"file:src/main/resources/conf/spring.xml"} ) 
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+	DirtiesContextTestExecutionListener.class,
+    TransactionalTestExecutionListener.class,
+	DbUnitTestExecutionListener.class })
 @ActiveProfiles("test")
 @TransactionConfiguration(defaultRollback=false)
+@DatabaseSetup(value= "/xml/cleanAll.xml")
 public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4SpringContextTests {
 	
 	@Autowired
@@ -30,20 +46,20 @@ public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4Spring
 	@Autowired
 	private CarrinhoComprasService ccService;
 	
+	@Autowired
+	private UsuarioService usuarioService;
+	
 	@Test
+	@DatabaseSetup("/xml/carrinhoCompraIntegracao.xml")
 	public void carrinhoComProdutoEUsuario(){
 		//cria objetos
-		Produto p = new Produto();
-		p.setNome("Filme");
-		p.setPreco(250.0);
-		produtoService.save(p);
-		estoqueService.addEstoque(p, 10);
-		Usuario u = new Usuario("Fabio");
+		Produto p = produtoService.findById(1);
+		Usuario u = usuarioService.buscarPorLogin("fabio@gmail.com");
 		
 		//cria carrinho com observers
 		CarrinhoCompras cc = new CarrinhoCompras();
 		cc.adicionarObserver(new AtualizaEstoqueObserver(estoqueService));
-		cc.adicionarObserver(new PreferenciasUsuarioObserver(u));
+		cc.adicionarObserver(new PreferenciasUsuarioObserver(u, usuarioService));
 		
 		cc.addProduto(p, 5);
 		cc.removeProduto(p, 3);
@@ -58,24 +74,17 @@ public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4Spring
 		assertEquals(500.0, cc.getTotal(), 0.001);
 	}
 	@Test
+	@DatabaseSetup("/xml/carrinhoCompraIntegracao.xml")
 	public void carrinhoComDoisProdutosEUsuario(){
 		//cria objetos
-		Produto p = new Produto();
-		p.setNome("Filme");
-		p.setPreco(250.0);
-		produtoService.save(p);
-		estoqueService.addEstoque(p, 10);
-		Produto p2 = new Produto();
-		p2.setNome("Livro");
-		p2.setPreco(50.0);
-		produtoService.save(p2);
-		estoqueService.addEstoque(p2, 10);
-		Usuario u = new Usuario("Fabio");
+		Produto p = produtoService.findById(1);
+		Produto p2 = produtoService.findById(2);
+		Usuario u = usuarioService.buscarPorLogin("fabio@gmail.com");
 		
 		//cria carrinho com observers
 		CarrinhoCompras cc = new CarrinhoCompras();
 		cc.adicionarObserver(new AtualizaEstoqueObserver(estoqueService));
-		cc.adicionarObserver(new PreferenciasUsuarioObserver(u));
+		cc.adicionarObserver(new PreferenciasUsuarioObserver(u, usuarioService));
 		
 		cc.addProduto(p, 5);
 		cc.removeProduto(p, 3);
@@ -84,7 +93,6 @@ public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4Spring
 		ccService.save(cc);
 		
 		cc = ccService.find(cc.getId());
-//		Hibernate.initialize(cc.getProdutos());
 		
 		assertTrue(u.getPreferencias().contains("Filme"));
 		assertEquals(8, estoqueService.getQuantidade(p));

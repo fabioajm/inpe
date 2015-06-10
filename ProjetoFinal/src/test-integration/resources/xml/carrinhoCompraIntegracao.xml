@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+<produto id="1" nome="Filme" preco="250.0" />
+<produto id="2" nome="Livro" preco="50.0" />
+<estoque id="1" produto_id="1" quantidade="10"/>
+<estoque id="2" produto_id="2" quantidade="10"/>
+<usuario id="1" nome="Fabio" login="fabio@gmail.com" senha="123"/>
+</dataset>
+

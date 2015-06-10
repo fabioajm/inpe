@@ -1,5 +1,7 @@
 package br.inpe.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ public class EstoqueServiceImpl implements EstoqueService {
 		if(e != null){
 			qtd += e.getQuantidade();
 			e.setQuantidade(qtd);
-			estoqueRepository.update(e);
+			estoqueRepository.merger(e);
 		}else{
 			e = new Estoque();
 			e.setProduto(p);
@@ -41,7 +43,7 @@ public class EstoqueServiceImpl implements EstoqueService {
 		}
 		qtd = e.getQuantidade() - qtd;
 		e.setQuantidade(qtd);
-		estoqueRepository.update(e);
+		estoqueRepository.merger(e);
 	}
 	
 	@Override
@@ -50,5 +52,9 @@ public class EstoqueServiceImpl implements EstoqueService {
 		if(estoque != null)
 			return estoque.getQuantidade();
 		return 0;
+	}
+	@Override
+	public List<Estoque> findAll() {
+		return estoqueRepository.findAll();
 	}
 }

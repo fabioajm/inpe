@@ -34,14 +34,14 @@ public class UsuarioServiceTest extends AbstractTransactionalJUnit4SpringContext
 	}
 	
 	@Test
-	public void logar(){
+	public void logarUsuario(){
 		usuarioService.save(u);
 		u = usuarioService.logar(u);
 		assertEquals("Fabio", u.getNome());
 	}
 
 	@Test(expected=UsuarioException.class)
-	public void naoLogar(){
+	public void usuarioNaoCadastrado(){
 		u = usuarioService.logar(u);
 	}
 

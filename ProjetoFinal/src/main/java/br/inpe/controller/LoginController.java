@@ -30,6 +30,7 @@ public class LoginController {
 		}
 		return "redirect:/index";
 	}
+	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session){
 		session.removeAttribute("usuario");
@@ -39,6 +40,23 @@ public class LoginController {
 			session.removeAttribute("carrinho");
 		}
 		return "redirect:/index";
+	}
+	
+	@RequestMapping("/adm/efetuarLogin")
+	public String efetuarLoginAdm(Usuario usuario, Model model, HttpSession session){
+		try{
+		session.setAttribute("usuarioAdm", usuarioService.logar(usuario));
+		}catch(UsuarioException e){
+			model.addAttribute("mensagem", e.getMessage());
+			return "/adm/login";
+		}
+		return "redirect:/adm";
+	}
+	
+	@RequestMapping("/adm/logout")
+	public String logoutAdm(HttpSession session){
+		session.removeAttribute("usuarioAdm");
+		return "redirect:/adm/login";
 	}
 	
 	

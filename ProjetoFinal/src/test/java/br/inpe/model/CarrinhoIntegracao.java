@@ -1,14 +1,22 @@
 package br.inpe.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import org.jmock.Expectations;
+import org.jmock.integration.junit4.JUnitRuleMockery;
+import org.junit.Rule;
 import org.junit.Test;
 
 import br.inpe.observer.AtualizaEstoqueObserverMock;
 import br.inpe.observer.EstoqueMock;
 import br.inpe.observer.PreferenciasUsuarioObserver;
+import br.inpe.service.UsuarioService;
 
 public class CarrinhoIntegracao {
+	
+	@Rule 
+	public JUnitRuleMockery ctx = new JUnitRuleMockery();
 	
 	@Test
 	public void carrinhoComEstoqueEUsuario(){
@@ -17,10 +25,15 @@ public class CarrinhoIntegracao {
 		EstoqueMock.getInstance().addEstoque(p, 10);
 		Usuario u = new Usuario("Fabio");
 		
+		
 		//cria carrinho com observers
 		CarrinhoCompras cc = new CarrinhoCompras();
 		cc.adicionarObserver(new AtualizaEstoqueObserverMock());
-		cc.adicionarObserver(new PreferenciasUsuarioObserver(u));
+		UsuarioService uServiceMock = ctx.mock(UsuarioService.class);
+		ctx.checking(new Expectations() {{
+			oneOf(uServiceMock).merge(u);
+		}});
+		cc.adicionarObserver(new PreferenciasUsuarioObserver(u, uServiceMock));
 		
 		cc.addProduto(p, 5);
 		cc.removeProduto(p, 3);

@@ -27,7 +27,7 @@ public class GenericRepository <T, I extends Serializable> {
 		entityManager.persist(entity);
 	}
 	
-	public T update(T entity) {
+	public T merger(T entity) {
 		return entityManager.merge(entity);
 	}
 	

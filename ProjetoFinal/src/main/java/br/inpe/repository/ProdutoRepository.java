@@ -13,7 +13,7 @@ import br.inpe.model.Produto;
 public class ProdutoRepository extends GenericRepository<Produto, Integer> {
 
 	@SuppressWarnings("unchecked")
-	public List<Produto> buscarProdutosComEstoque() {
+	public List<Produto> buscarProdutosEmEstoque() {
 		Query query = entityManager.createQuery("from Produto p where exists(from Estoque e where p = e.produto and e.quantidade > 0) ");
 		try{
 			return query.getResultList();
