@@ -1,15 +1,18 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+    pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Movies</title>
-</head>
+<html lang="pt_BR">
+
+	<jsp:include page="../head.jsp" >
+		<jsp:param name="title" value="Produto"/>
+	</jsp:include>
 <body>
-	<h2>Olá mundo com Spring MVC!</h2>
+
+	<jsp:include page="../adm/header.jsp" />
+
+	<section class="conteudo">
 
 	<table>
 		<tr>
@@ -33,5 +36,9 @@
 			</tr>
 		</c:forEach>
 	</table>
+		    
+	</section>   
+	 
+	<jsp:include page="../footer.jsp" />
 </body>
 </html>

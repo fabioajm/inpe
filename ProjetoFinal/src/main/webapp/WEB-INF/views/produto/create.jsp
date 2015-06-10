@@ -11,7 +11,7 @@
 
 <body>
 
-	<jsp:include page="../header.jsp" />
+	<jsp:include page="../adm/header.jsp" />
 
 	<section class="conteudo">
 	

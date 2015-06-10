@@ -10,7 +10,7 @@
 	</jsp:include>
 <body>
 
-	<jsp:include page="../header.jsp" />
+	<jsp:include page="../adm/header.jsp" />
 
 	<section class="conteudo">
 		<sf:form method="POST" action="save" enctype="multipart/form-data">

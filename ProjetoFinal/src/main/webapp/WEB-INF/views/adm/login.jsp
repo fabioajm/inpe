@@ -12,7 +12,7 @@
 <fieldset>
 <legend></legend>
 </fieldset>
-	<jsp:include page="../header.jsp" />
+	<jsp:include page="../adm/header.jsp" />
 
 	<section class="conteudo">
 		<label style="color:red">${mensagem }</label>
