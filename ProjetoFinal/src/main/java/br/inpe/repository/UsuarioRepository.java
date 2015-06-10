@@ -5,7 +5,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import br.inpe.exception.UsuarioNaoEncontradoException;
+import br.inpe.exception.UsuarioException;
 import br.inpe.model.Usuario;
 
 @Repository
@@ -14,7 +14,11 @@ public class UsuarioRepository extends GenericRepository<Usuario, Long> {
 	public Usuario buscarPorLogin(String login) {
 		Query query = entityManager.createQuery("from Usuario u where u.login= :login ");
 		query.setParameter("login", login);
-		return (Usuario) query.getSingleResult();
+		try{
+			return (Usuario) query.getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
 	}
 
 	public Usuario logar(Usuario u) {
@@ -24,7 +28,7 @@ public class UsuarioRepository extends GenericRepository<Usuario, Long> {
 		try{
 			return (Usuario) query.getSingleResult();
 		}catch(NoResultException e){
-			throw new UsuarioNaoEncontradoException("Usuario ou senha inválidos");
+			throw new UsuarioException("Usuario ou senha inválidos");
 		}
 	}
 

@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import br.inpe.enums.TipoPagamento;
 import br.inpe.observer.CarrinhoObserver;
 
 @Entity
@@ -31,6 +32,8 @@ public class CarrinhoCompras {
 	private Usuario usuario;
 	@Transient
 	private List<CarrinhoObserver> observer = new ArrayList<>();
+
+	private TipoPagamento tipoPagamento;
 
 	public Long getId() {
 		return id;
@@ -56,7 +59,6 @@ public class CarrinhoCompras {
 		
 		notificarObserversAdicao(produto, quantidade);
 	}
-
 
 	public int getQuantidade(Produto produto) {
 		if (produtos.containsKey(produto)) {
@@ -99,6 +101,24 @@ public class CarrinhoCompras {
 	public void esvaziar() {
 		produtos.forEach((k, v) -> notificarObserversRemocao(k,v));
 		produtos.clear();
+	}
+
+	public void setPagamento(TipoPagamento tipoPagamento) {
+		this.tipoPagamento = tipoPagamento;
+	}
+
+	public double getTotalAPagar() {
+		if(tipoPagamento == null){
+			return getTotal();
+		}
+		return tipoPagamento.getRegra().calcular(getTotal());
+	}
+
+	public double getDesconto() {
+		if(tipoPagamento == null){
+			return 0;
+		}
+		return tipoPagamento.getRegra().getDesconto();
 	}
 
 }

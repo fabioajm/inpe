@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.inpe.enums.TipoPagamento;
 import br.inpe.observer.MockCarrinhoObserver;
 
 public class CarrinhoComprasTest {
@@ -153,8 +154,38 @@ public class CarrinhoComprasTest {
 	}
 	
 	@Test
-	public void adicionarPagamento(){
-		
+	public void carrinhoTotalAPagarSemTipoPagamento(){
+		Produto produto = new Produto(1, "Filme", 250.0);
+		carrinho.addProduto(produto, 4);
+		assertEquals(1000.0,carrinho.getTotalAPagar(),0.001);
+		assertEquals(0.0,carrinho.getDesconto(),0.001);
+	}
+			
+	@Test
+	public void pagamentoComCartaoCredito(){
+		Produto produto = new Produto(1, "Filme", 250.0);
+		carrinho.addProduto(produto, 4);
+		carrinho.setPagamento(TipoPagamento.CARTAO_CREDITO);
+		assertEquals(1000.0,carrinho.getTotalAPagar(),0.001);
+		assertEquals(0.0,carrinho.getDesconto(),0.001);
+	}
+	
+	@Test
+	public void pagamentoComCartaoDebitoDesconto5PorCento(){
+		Produto produto = new Produto(1, "Filme", 250.0);
+		carrinho.addProduto(produto, 4);
+		carrinho.setPagamento(TipoPagamento.CARTAO_DEBITO);
+		assertEquals(950.0,carrinho.getTotalAPagar(),0.001);
+		assertEquals(5.0,carrinho.getDesconto(),0.001);
+	}
+	
+	@Test
+	public void pagamentoComBoletoDescontoDezPorCento(){
+		Produto produto = new Produto(1, "Filme", 250.0);
+		carrinho.addProduto(produto, 4);
+		carrinho.setPagamento(TipoPagamento.BOLETO);
+		assertEquals(900.0,carrinho.getTotalAPagar(),0.001);
+		assertEquals(10.0,carrinho.getDesconto(),0.001);
 	}
 	
 }

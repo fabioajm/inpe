@@ -16,7 +16,7 @@
 					<label style="color:#fff;">Olá, ${usuario.nome}</label> 
 				</c:if>
 				</div>
-				<a href="#"><img src="img/logo.png" class="logo" alt="" titl=""/></a>
+				<a href="#"><img src="img/logo.png" class="logo" alt="" title=""/></a>
 				<a href="#" class="hamburger"></a>
 				<nav>
 					<ul>

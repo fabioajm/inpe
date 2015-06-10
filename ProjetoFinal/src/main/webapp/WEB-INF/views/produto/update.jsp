@@ -21,7 +21,7 @@
 				Qtd:
 					<select name="qtd" >
 					<c:forEach begin="0" end="20" var="valor">
-						<option value="${valor }" ${ qtd == valor ? "selected='selected'" :"" }">${valor }</option>
+						<option value="${valor }" ${ qtd == valor ? "selected='selected'" :"" }>${valor }</option>
 					</c:forEach>
 					</select>     <br /> 
 		        Imagem: <input type="file" name="image"><br />  <br /> 

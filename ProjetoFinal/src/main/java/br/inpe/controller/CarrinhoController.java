@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.inpe.enums.TipoPagamento;
 import br.inpe.model.CarrinhoCompras;
 import br.inpe.model.Produto;
 import br.inpe.model.Usuario;
@@ -51,6 +52,13 @@ public class CarrinhoController {
 	@RequestMapping("/carrinho")
 	public String meuCarrinho(){
 		return "carrinho/carrinho";
+	}
+	
+	@RequestMapping("/pagar")
+	public String pagar(TipoPagamento tipo, HttpSession session){
+		CarrinhoCompras cc = (CarrinhoCompras) session.getAttribute("carrinho");
+		cc.setPagamento(tipo);;
+		return "carrinho/pagar";
 	}
 
 }

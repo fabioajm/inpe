@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.inpe.exception.UsuarioNaoEncontradoException;
+import br.inpe.exception.UsuarioException;
 import br.inpe.model.CarrinhoCompras;
 import br.inpe.model.Usuario;
 import br.inpe.service.UsuarioService;
@@ -24,11 +24,11 @@ public class LoginController {
 	public String efetuarLogin(Usuario usuario, Model model, HttpSession session){
 		try{
 		session.setAttribute("usuario", usuarioService.logar(usuario));
-		}catch(UsuarioNaoEncontradoException e){
+		}catch(UsuarioException e){
 			model.addAttribute("mensagem", e.getMessage());
 			return "/login";
 		}
-		return "redirect:index";
+		return "redirect:/index";
 	}
 	@RequestMapping("/logout")
 	public String logout(HttpSession session){
@@ -38,7 +38,7 @@ public class LoginController {
 			cc.esvaziar();
 			session.removeAttribute("carrinho");
 		}
-		return "redirect:index";
+		return "redirect:/index";
 	}
 	
 	
@@ -48,10 +48,15 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/usuario/save")
-	public String save(Usuario usuario, HttpSession session){
-		usuarioService.save(usuario);
-		session.setAttribute("usuario", usuario);
-		return "index";
+	public String save(Usuario usuario, Model model, HttpSession session){
+		try{
+			usuarioService.save(usuario);
+			session.setAttribute("usuario", usuario);
+			return "redirect:/index";
+		}catch(UsuarioException e){
+			model.addAttribute("mensagem", e.getMessage());
+			return "/login";
+		}
 	}
 
 }

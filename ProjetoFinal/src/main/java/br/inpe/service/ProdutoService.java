@@ -30,7 +30,7 @@ public class ProdutoService {
 	}
 
 	public List<Produto> findAll() {
-		return produtoRepository.findAll();
+		return produtoRepository.buscarProdutosComEstoque();
 	}
 
 	public void remove(Produto produto) {

@@ -9,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
-import br.inpe.exception.UsuarioNaoEncontradoException;
+import br.inpe.exception.UsuarioException;
 import br.inpe.model.Usuario;
 
 
@@ -40,7 +40,7 @@ public class UsuarioServiceTest extends AbstractTransactionalJUnit4SpringContext
 		assertEquals("Fabio", u.getNome());
 	}
 
-	@Test(expected=UsuarioNaoEncontradoException.class)
+	@Test(expected=UsuarioException.class)
 	public void naoLogar(){
 		u = usuarioService.logar(u);
 	}

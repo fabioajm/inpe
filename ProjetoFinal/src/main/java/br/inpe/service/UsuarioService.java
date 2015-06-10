@@ -5,19 +5,23 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.inpe.exception.UsuarioNaoEncontradoException;
+import br.inpe.exception.UsuarioException;
 import br.inpe.model.Usuario;
 import br.inpe.repository.UsuarioRepository;
 
 @Service
-@Transactional(dontRollbackOn=UsuarioNaoEncontradoException.class)
+@Transactional(dontRollbackOn=UsuarioException.class)
 public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	public void save(Usuario u) {
-		usuarioRepository.save(u);
+			if(usuarioRepository.buscarPorLogin(u.getLogin()) == null){
+				usuarioRepository.save(u);
+			}else{
+				throw new UsuarioException("Login já existente");
+			}
 	}
 
 	public Usuario buscarPorLogin(String login) {
