@@ -57,8 +57,14 @@ public class CarrinhoController {
 	@RequestMapping("/pagar")
 	public String pagar(TipoPagamento tipo, HttpSession session){
 		CarrinhoCompras cc = (CarrinhoCompras) session.getAttribute("carrinho");
-		cc.setPagamento(tipo);;
+		cc.setPagamento(tipo);
 		return "carrinho/pagar";
+	}
+	
+	@RequestMapping("/checkout")
+	public String checkout(){
+		
+		return "carrinho/checkout";
 	}
 
 }

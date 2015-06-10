@@ -755,6 +755,171 @@ footer .copyrights a.ph_link{
     text-decoration: none;
 }
 
+.alinhaTitulo{
+	padding: 10px 0 10px 10px;
+}
+
+.formLogin{
+	margin-left:5%;
+	width: 40%;
+	background-color:#fff;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	 border-radius:7px;
+	 background-color: #EBEBEB;
+	 border: solid 1px #BCBCBC;  
+}
+
+.formLogin input[type=password]{
+	width: 90%;
+}
+
+.formLogin input[type=email]{
+	width: 90%;
+}
+
+.formLogin,.formLoginNovo{
+	display: inline-table;
+}
+
+.formLoginNovo {
+	margin-left:5%;
+	width: 40%;
+	background-color: #fff;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	background-color: #EBEBEB;
+	border: solid 1px #BCBCBC;
+}
+
+.formLoginNovo input[type=text]{
+	width: 90%;
+}
+
+.formLoginNovo input[type=password]{
+	width: 90%;
+}
+
+.formLoginNovo input[type=email]{
+	width: 90%;
+}
+
+.alinhaForm{
+	margin-left: 15px;
+	margin-bottom: 2px;
+}
+
+.alinhaBt{
+	float:right;
+	margin-right:15px;
+	padding-top:5px;
+	padding-bottom: 10px;
+}
+
+.conteudo{
+	background-color: #fff;
+} 
+	
+#clearBoth{
+	clear: both;
+}
+
+#cadastro table tr{
+	height: 30px;
+}
+
+.alinhaTopo{
+	vertical-align: top;
+}
+
+.alinhaMeio{
+	vertical-align: middle;
+}
+
+.textoCentro{
+	text-align: center;
+}
+
+#tabelaCarrinho table {
+	width: 100%;
+}
+
+#tabelaCarrinho table tr td{
+	height: 30px;
+}
+
+#tabelaCarrinho table tr td.image {
+	width: 15%;
+
+}
+
+#tabelaCarrinho table tr td.descricao {
+	width: 30%;
+	font: 12em;
+}
+
+#tabelaCarrinho table tr td a {
+	color: #000;
+}
+
+.colunas{
+	float:left;
+	width: 32%;
+		-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	background-color: #EBEBEB;
+	border: solid 1px #BCBCBC;
+	margin-left: 5px;
+}
+
+.input80{
+	width: 80%;
+}
+
+.input90{
+	width: 93%;
+}
+
+
+#tabelaRevise table{
+	width: 100%;
+}
+
+
+.tituloCaixa{
+	margin: 10px 0 0 5px;
+}
+
+#tabelaNome,#tabelaFormaEntrega,#tabelaPagamento,#tabelaRevise{
+	margin: 10px 0 0 10px;
+}
+
+#tabelaNome table tr{
+	height: 40px;
+}
+
+#tabelaFormaEntrega table tr{
+	height: 40px;
+}
+
+#tabelaPagamento table tr{
+	height: 40px;
+}
+
+#tabelaRevise table tr{
+	height: 40px;
+}
+
+#tabelaCalculoFinal{
+	margin-left: 50%;
+}
+
+#tabelaCalculoFinal p{
+	font: 12em;
+	font-weight: bold;
+}
 
 
 

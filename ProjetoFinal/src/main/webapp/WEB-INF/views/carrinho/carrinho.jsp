@@ -27,8 +27,13 @@ th {
 
 	<jsp:include page="../header.jsp" />
 
-	<section class="conteudo"> 
+	<section class="conteudo">
+	<div class="wrapper"> 
 		<c:if test="${not empty carrinho.produtos }">
+		<div class="tituloPagina">
+					<h3>Carrinho</h3>
+				</div>
+		<div id="tabelaCarrinho">
 			<table>
 				<tr>
 	
@@ -40,23 +45,21 @@ th {
 				</tr>
 				<c:forEach items="${carrinho.produtos}" var="entry">
 					<tr>
-						<td><img src="/ProjetoFinal/produto/image?id=${entry.key.id}" class="imgMedium"></td>
-						<td><h2>${entry.key.nome}</h2>
-							<br /> R$ ${entry.key.descricao }<br /> <a
-							href="remove?id=${entry.key.id}&qtd=${entry.value}"><h2>remover</h2></a></td>
-						<td>R$ ${entry.key.preco}</td>
-						<td>${entry.value}</td>
-						<td>R$ ${entry.key.preco * entry.value}</td>
+						<td class="image"><img src="/ProjetoFinal/produto/image?id=${entry.key.id}" class="imgMedium"></td>
+						<td class="alinhaTopo descricao"><h2>${entry.key.nome}</h2>
+							${entry.key.descricao } </td>
+						<td class="alinhaMeio textoCentro">R$ ${entry.key.preco}</td>
+						<td class="alinhaMeio textoCentro">${entry.value}</td>
+						<td class="alinhaMeio textoCentro">R$ ${entry.key.preco * entry.value}</td>
+						<td class="alinhaMeio textoCentro"><a href="remove?id=${entry.key.id}&qtd=${entry.value}">remover</a></td>
 					</tr>
 				</c:forEach>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>frete gratis</td>
+					<td colspan="3">frete gratis</td>
 					<td>R$ ${carrinho.total}</td>
 				</tr>
 			</table>
+			</div>
 			<form action="<c:url value="/carrinho/pagar"/>">
 				Tipo:<select name="tipo">
 					<option value="CARTAO_CREDITO">Cartão de Crédito</option>
@@ -68,6 +71,7 @@ th {
 		<c:if test="${empty carrinho.produtos}">
 			<h1>Seu carrinho esta vazio!</h1>
 		</c:if> 
+		</div>
 	</section>
 
 	<jsp:include page="../footer.jsp" />
