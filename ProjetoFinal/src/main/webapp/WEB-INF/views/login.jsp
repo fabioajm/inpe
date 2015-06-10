@@ -20,8 +20,8 @@
 			<legend>Logar</legend>
 			<form method="POST" action="<c:url value="/efetuarLogin"/>" >
 				
-		        Email: <input  type="email"  name="login" ><br />
-				Senha: <input type="password" name="senha" />  <br />      
+		        Email: <input  type="email"  name="login" required="required"><br />
+				Senha: <input type="password" name="senha" required="required"/>  <br />      
 		        <input type="submit" id="enviar" value="Enviar">
 		    </form>
 		    </fieldset>
@@ -29,10 +29,10 @@
 				<legend>Novo Usuario</legend>
 		    <form method="POST" action="<c:url value="/usuario/save"/>" >
 				
-		        Nome: <input type="text" name="nome"><br />
-		        Email: <input  type="email"  name="login" ><br />
-				Senha: <input type="password" name="senha" />  <br />      
-		        <input type="submit" id="salvar" value="Salvar">
+		        Nome: <input type="text" name="nome" required="required"><br />
+		        Email: <input  type="email"  name="login" required="required"><br />
+				Senha: <input type="password" name="senha" required="required"/>  <br />      
+		        <input type="submit" id="salvar" value="Salvar" >
 		    </form>
 		    </fieldset>
 		    
