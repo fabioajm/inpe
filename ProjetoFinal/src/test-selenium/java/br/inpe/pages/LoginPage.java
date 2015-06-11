@@ -1,14 +1,16 @@
 package br.inpe.pages;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LooginPage {
+public class LoginPage {
 
 	private WebDriver driver;
 	
-	public LooginPage(WebDriver driver){
+	public LoginPage(WebDriver driver){
 		this.driver = driver;
 	}
 
@@ -17,6 +19,7 @@ public class LooginPage {
 	}
 
 	public void cadastra(String nome, String email, String senha) {
+		driver.manage().timeouts().pageLoadTimeout(100, TimeUnit.SECONDS);
 		WebElement campoNome = driver.findElement(By.name("nome"));
 		campoNome.sendKeys(nome);
 
@@ -39,9 +42,5 @@ public class LooginPage {
 
 		WebElement salvar = driver.findElement(By.id("enviar"));
 		salvar.click();
-	}
-
-	public boolean usuarioLogado(String nome) {
-		return driver.getPageSource().contains(nome);
 	}
 }

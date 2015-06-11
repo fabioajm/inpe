@@ -15,7 +15,7 @@
 
 	<section class="conteudo">
 
-		<sf:form method="POST" action="save" enctype="multipart/form-data">
+		<form method="POST" action="<c:url value="/carrinho/checkout"/>" >
 			<div class="wrapper ">
 				<div class="tituloPagina">
 					<h3>Finalizando sua Compra</h3>
@@ -70,12 +70,15 @@
 									<table>
 										<tr>
 											<td>Selecione a Forma de Pagamento</td>
-											<td><select>
-												<option>Cartão de Credito</option>
-												<option>Cartão de Debito</option>
-												<option>Boleto Bancario</option>
-											</select></td>
+											<td>
 											
+												<select name="tipo" onchange="this.form.submit()">
+													<option value="CARTAO_CREDITO">Cartão de Crédito</option>
+													<option value="CARTAO_DEBITO">Cartão de Débito</option>
+													<option value="BOLETO">Boleto Bancario</option>
+												</select>
+											
+											</td>
 									</table>
 								</div>
 						</div>
@@ -87,32 +90,34 @@
 						<div id="tabelaRevise">
 									<table>
 										<tr>
-											<th>Produto</td>
-											<th>Quant</td>
-											<th>Valor</td>
+											<th>Produto</th>
+											<th>Quant</th>
+											<th>Valor</th>
 										</tr>
+										<c:forEach items="${carrinho.produtos}" var="entry">
 										<tr>
-											<td>Matrix Reloaded</td>
-											<td class="textoCentro" >2</td>
-											<td class="textoCentro" >$R 12,50</td>
+											<td>${entry.key.nome}</td>
+											<td class="textoCentro" >${entry.value}</td>
+											<td class="textoCentro" >R$ ${entry.key.preco * entry.value}</td>
 										</tr>
+										</c:forEach>
 									</table>
 									<div id="tabelaCalculoFinal">
 									<table>
 										<tr>
 										
 											<td><p>Subtotal</p></td>
-											<td>R$12,50</td>
+											<td>R$ ${carrinho.total}</td>
 										</tr>
 										<tr>
 										
-											<td><p>Envio</p></td>
-											<td>7,50</td>
+											<td><p>Desconto</p></td>
+											<td>R$ ${carrinho.desconto}</td>
 										</tr>
 										<tr>
 										
 											<td><p>Total Final</p></td>
-											<td>R$20,00</td>
+											<td>R$ ${carrinho.totalAPagar}</td>
 										</tr>
 									</table>
 									</div>
@@ -126,7 +131,7 @@
 				<div class=""><input type="button" class="pagar_btn" value="Finalizar Compra"> </div>
 				</form>
 			</div>
-		</sf:form>
+		</form>
 	</section>
 
 	<jsp:include page="../footer.jsp" />

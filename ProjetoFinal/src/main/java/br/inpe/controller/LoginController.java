@@ -56,7 +56,7 @@ public class LoginController {
 	@RequestMapping("/adm/logout")
 	public String logoutAdm(HttpSession session){
 		session.removeAttribute("usuarioAdm");
-		return "redirect:/adm/login";
+		return "redirect:/adm";
 	}
 	
 	
@@ -70,6 +70,18 @@ public class LoginController {
 		try{
 			usuarioService.save(usuario);
 			session.setAttribute("usuario", usuario);
+			return "redirect:/index";
+		}catch(UsuarioException e){
+			model.addAttribute("mensagem", e.getMessage());
+			return "/login";
+		}
+	}
+	
+	@RequestMapping("/adm/usuario/save")
+	public String saveAdm(Usuario usuario, Model model, HttpSession session){
+		try{
+			usuarioService.save(usuario);
+			session.setAttribute("usuarioAdm", usuario);
 			return "redirect:/index";
 		}catch(UsuarioException e){
 			model.addAttribute("mensagem", e.getMessage());

@@ -38,7 +38,7 @@ public class CarrinhoIntegracao {
 		cc.addProduto(p, 5);
 		cc.removeProduto(p, 3);
 		
-		assertTrue(u.getPreferencias().contains("Filme"));
+		assertTrue(u.getPreferencias().contains(p));
 		assertEquals(8, EstoqueMock.getInstance().getQuantidade(p));
 		assertEquals(500.0, cc.getTotal(), 0.001);
 	}

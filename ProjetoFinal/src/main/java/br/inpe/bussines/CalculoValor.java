@@ -3,9 +3,13 @@ package br.inpe.bussines;
 public abstract class  CalculoValor {
 
 	public double calcular(double total) {
-		return total - (total * getDesconto())/100;
+		return total - getDesconto(total);
 	}
 
-	public abstract double getDesconto();
+	public double getDesconto(double total) {
+		return (total * getPorcentagem())/100;
+	}
+	
+	public abstract double getPorcentagem();
 
 }

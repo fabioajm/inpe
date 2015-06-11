@@ -14,7 +14,10 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import br.inpe.enums.TipoPagamento;
+import br.inpe.pages.CheckOutPage;
 import br.inpe.pages.IndexPage;
+import br.inpe.pages.MeuCarrinhoPage;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -26,6 +29,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
     TransactionalTestExecutionListener.class,
 	DbUnitTestExecutionListener.class })
 @ActiveProfiles("test")
+@DatabaseSetup(value= "/xml/cleanAll.xml")
 public class SeleniumTest {
 
 	private WebDriver driver;
@@ -49,6 +53,85 @@ public class SeleniumTest {
 	public void logar(){
 		index.visita().logar().efetuarLogin("fab.ajm@gmail.com","123");
 		assertTrue(index.usuarioLogado("Fabio Oliveira")); 
+	}
+	
+	@Test
+	@DatabaseSetup("/xml/usuario.xml")
+	@DatabaseSetup("/xml/produtos.xml")
+	public void adicionarUmProduto(){
+		index.visita().logar().efetuarLogin("fab.ajm@gmail.com","123");
+		assertTrue(index.usuarioLogado("Fabio Oliveira"));
+		index.adiconarProduto(1,1);
+		assertTrue(index.carrinhoContem(1));
+	}
+	
+	@Test
+	@DatabaseSetup("/xml/usuario.xml")
+	@DatabaseSetup("/xml/produtos.xml")
+	public void adicionarDoisProdutosIguais(){
+		index.visita().logar().efetuarLogin("fab.ajm@gmail.com","123");
+		assertTrue(index.usuarioLogado("Fabio Oliveira"));
+		index.adiconarProduto(1,2);
+		assertTrue(index.carrinhoContem(2));
+	}
+	
+	@Test
+	@DatabaseSetup("/xml/usuario.xml")
+	@DatabaseSetup("/xml/produtos.xml")
+	public void adicionarDoisProdutosDiferentes(){
+		index.visita().logar().efetuarLogin("fab.ajm@gmail.com","123");
+		assertTrue(index.usuarioLogado("Fabio Oliveira"));
+		index.adiconarProduto(1,2);
+		index.adiconarProduto(3,3);
+		assertTrue(index.carrinhoContem(5));
+	}
+	
+	@Test
+	@DatabaseSetup("/xml/usuario.xml")
+	@DatabaseSetup("/xml/produtos.xml")
+	public void adicionarProdutosEVisualizarCarrinho(){
+		index.visita().logar().efetuarLogin("fab.ajm@gmail.com","123");
+		assertTrue(index.usuarioLogado("Fabio Oliveira"));
+		MeuCarrinhoPage meuCarrinho = index.adiconarProduto(2,2).adiconarProduto(4,3).meuCarrinho();
+		
+		assertTrue(meuCarrinho.carrinhoValorTotal(990.0));
+	}
+	
+	@Test
+	@DatabaseSetup("/xml/usuario.xml")
+	@DatabaseSetup("/xml/produtos.xml")
+	public void pagarComCartaoCredito(){
+		index.visita().logar().efetuarLogin("fab.ajm@gmail.com","123");
+		assertTrue(index.usuarioLogado("Fabio Oliveira"));
+		MeuCarrinhoPage meuCarrinho = index.adiconarProduto(2,2).adiconarProduto(4,3).meuCarrinho();
+		CheckOutPage checkout = meuCarrinho.checkout();
+		checkout.selecionar(TipoPagamento.CARTAO_CREDITO);
+		assertTrue(checkout.valorTotal(990.0));
+	}
+	
+	@Test
+	@DatabaseSetup("/xml/usuario.xml")
+	@DatabaseSetup("/xml/produtos.xml")
+	public void pagarComCartaoDebito(){
+		index.visita().logar().efetuarLogin("fab.ajm@gmail.com","123");
+		assertTrue(index.usuarioLogado("Fabio Oliveira"));
+		MeuCarrinhoPage meuCarrinho = index.adiconarProduto(2,2).adiconarProduto(4,3).meuCarrinho();
+		CheckOutPage checkout = meuCarrinho.checkout();
+		checkout.selecionar(TipoPagamento.CARTAO_DEBITO);
+		assertTrue(checkout.valorTotal(940.5));
+		assertTrue(checkout.valorDesconto(49.5));
+	}
+	@Test
+	@DatabaseSetup("/xml/usuario.xml")
+	@DatabaseSetup("/xml/produtos.xml")
+	public void pagarComBoleto(){
+		index.visita().logar().efetuarLogin("fab.ajm@gmail.com","123");
+		assertTrue(index.usuarioLogado("Fabio Oliveira"));
+		MeuCarrinhoPage meuCarrinho = index.adiconarProduto(2,2).adiconarProduto(4,3).meuCarrinho();
+		CheckOutPage checkout = meuCarrinho.checkout();
+		checkout.selecionar(TipoPagamento.BOLETO);
+		assertTrue(checkout.valorTotal(891.0));
+		assertTrue(checkout.valorDesconto(99.0));
 	}
 	
 	@After

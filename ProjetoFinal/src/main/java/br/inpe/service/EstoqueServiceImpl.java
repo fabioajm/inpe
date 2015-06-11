@@ -38,12 +38,16 @@ public class EstoqueServiceImpl implements EstoqueService {
 	@Override
 	public void removeEstoque(Produto p, int qtd){
 		Estoque e = estoqueRepository.getEstoque(p);
-		if(e == null || e.getQuantidade() < qtd ){
+		if (e == null || e.getQuantidade() < qtd) {
 			throw new NaoTemProdutoNoEstoqueException("Não tem estoque para remover");
 		}
-		qtd = e.getQuantidade() - qtd;
-		e.setQuantidade(qtd);
-		estoqueRepository.merger(e);
+		if (e.getQuantidade() == qtd) {
+			estoqueRepository.remove(e);
+		} else {
+			qtd = e.getQuantidade() - qtd;
+			e.setQuantidade(qtd);
+			estoqueRepository.merger(e);
+		}
 	}
 	
 	@Override

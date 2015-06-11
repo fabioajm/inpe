@@ -118,7 +118,7 @@ public class CarrinhoCompras {
 		if(tipoPagamento == null){
 			return 0;
 		}
-		return tipoPagamento.getRegra().getDesconto();
+		return tipoPagamento.getRegra().getDesconto(getTotal());
 	}
 
 }

@@ -27,7 +27,7 @@
 		    </fieldset>
 		    <fieldset>
 				<legend>Novo Usuario</legend>
-		    <form method="POST" action="<c:url value="/usuario/save"/>" >
+		    <form method="POST" action="<c:url value="/adm/usuario/save"/>" >
 				
 		        Nome: <input type="text" name="nome" required="required"><br />
 		        Email: <input  type="email"  name="login" required="required"><br />

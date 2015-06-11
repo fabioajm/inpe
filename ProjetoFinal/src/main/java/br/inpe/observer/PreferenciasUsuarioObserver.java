@@ -18,7 +18,7 @@ public class PreferenciasUsuarioObserver implements CarrinhoObserver {
 
 	@Override
 	public void notificarAdicao(Produto p, int qtd) {
-		usuario.addPreferncia(p.getNome());
+		usuario.addPreferncia(p);
 		usuarioService.merge(usuario);
 	}
 

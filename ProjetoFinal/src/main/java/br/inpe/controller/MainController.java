@@ -22,7 +22,7 @@ public class MainController  {
 	
 	@RequestMapping("/index")
 	public String index(Model model){
-		model.addAttribute("produtos", produtoService.findAll());
+		model.addAttribute("estoques", estoqueService.findAll());
 		return "index";
 	}
 	

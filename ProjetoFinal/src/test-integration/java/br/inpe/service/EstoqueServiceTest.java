@@ -16,6 +16,7 @@ import br.inpe.model.Produto;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -58,6 +59,7 @@ public class EstoqueServiceTest {
 	
 	@Test
 	@DatabaseSetup("/xml/estoque.xml")
+	@DatabaseTearDown("/xml/estoque.xml")
 	public void removeProdutoEstoque(){
 		Produto p = new Produto(1, "Filme", 250.0);
 		estoqueService.addEstoque(p, 1);

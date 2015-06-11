@@ -26,6 +26,6 @@ public class TestPreferenciasUsuarioObserver {
 		}});
 		CarrinhoObserver co = new PreferenciasUsuarioObserver(u, uServiceMock);
 		co.notificarAdicao(p, 5);
-		assertTrue(u.getPreferencias().contains("Filme"));
+		assertTrue(u.getPreferencias().contains(p));
 	}
 }

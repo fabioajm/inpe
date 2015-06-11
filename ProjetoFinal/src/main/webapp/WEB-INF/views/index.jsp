@@ -32,7 +32,7 @@
 						<a href="<c:url value="/logout"/>" class="login_btn">Logout</a>
 					</c:if>
 					<c:if test="${carrinho != null }">
-						<a href="<c:url value="/carrinho/carrinho"/>" class="login_btn">Meu carrinho (${carrinho.quantidadeProdutos})</a>
+						<a href="<c:url value="/carrinho/carrinho"/>" id="meucarrinho" class="login_btn">Meu carrinho (${carrinho.quantidadeProdutos})</a>
 					</c:if>
 				</nav>
 				
@@ -85,29 +85,29 @@
 		<div class="wrapper">
 			<ul class="properties_list">
 			
-				<c:forEach items="${produtos}" var="produto">
+				<c:forEach items="${estoques}" var="estoque" varStatus="status">
 				
 					<li>
 							<a href="#">
-								<img src="<c:url value="/produto/image?id=${produto.id}"/>" alt="" title="" class="property_img"/>
+								<img src="<c:url value="/produto/image?id=${estoque.produto.id}"/>" alt="" title="" class="property_img"/>
 							</a>
-							<span class="price">${produto.preco}</span>
+							<span class="price">${estoque.produto.preco}</span>
 							<div class="property_details">
 								<h1>
-									<a href="#">${produto.nome}</a>
+									<a href="#">${estoque.produto.nome}</a>
 								</h1>
-								<h2>${produto.descricao } </h2>
-								<a href="remove?id=${produto.id}"><h2>remover</h2></a>
+								<h2>${estoque.produto.descricao } </h2>
+								<a href="remove?id=${estoque.produto.id}"><h2>remover</h2></a>
 								
 								<form action="<c:url value="/carrinho/adicionar"/>">
-									<input type="hidden" value="${produto.id}" name="id" />
+									<input type="hidden" value="${estoque.produto.id}" name="id" />
 									Qtd:
-									<select name="qtd" >
-									<c:forEach begin="1" end="10" var="valor">
+									<select name="qtd" id="qtd${estoque.produto.id}" >
+									<c:forEach begin="1" end="${estoque.quantidade}" var="valor">
 										<option value="${valor }">${valor }</option>
 									</c:forEach>
 									</select>
-									<input type="submit" value="adicionar">
+									<input type="submit" id="adicionar${estoque.produto.id}" value="adicionar">
 								</form>
 								
 							</div>

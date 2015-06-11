@@ -55,17 +55,13 @@ th {
 					</tr>
 				</c:forEach>
 				<tr>
-					<td colspan="3">frete gratis</td>
-					<td>R$ ${carrinho.total}</td>
+					<td colspan="4"></td>
+					<td class="alinhaMeio textoCentro">R$ ${carrinho.total}</td>
 				</tr>
 			</table>
 			</div>
-			<form action="<c:url value="/carrinho/pagar"/>">
-				Tipo:<select name="tipo">
-					<option value="CARTAO_CREDITO">Cartão de Crédito</option>
-					<option value="CARTAO_DEBITO">Cartão de Débito</option>
-				</select>
-			<a href="#" onclick="$(this).closest('form').submit()" class="pagar_btn">Finalizar</a>
+			<form action="<c:url value="/carrinho/checkout"/>">
+			<a href="#" onclick="$(this).closest('form').submit()" class="pagar_btn">Pagamento</a>
 			</form>
 		</c:if> 
 		<c:if test="${empty carrinho.produtos}">

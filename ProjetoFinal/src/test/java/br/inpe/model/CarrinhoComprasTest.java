@@ -176,7 +176,7 @@ public class CarrinhoComprasTest {
 		carrinho.addProduto(produto, 4);
 		carrinho.setPagamento(TipoPagamento.CARTAO_DEBITO);
 		assertEquals(950.0,carrinho.getTotalAPagar(),0.001);
-		assertEquals(5.0,carrinho.getDesconto(),0.001);
+		assertEquals(50.0,carrinho.getDesconto(),0.001);
 	}
 	
 	@Test
@@ -185,7 +185,7 @@ public class CarrinhoComprasTest {
 		carrinho.addProduto(produto, 4);
 		carrinho.setPagamento(TipoPagamento.BOLETO);
 		assertEquals(900.0,carrinho.getTotalAPagar(),0.001);
-		assertEquals(10.0,carrinho.getDesconto(),0.001);
+		assertEquals(100.0,carrinho.getDesconto(),0.001);
 	}
 	
 }

@@ -22,7 +22,7 @@ public class Usuario {
 	@Column(nullable=false)
 	private String senha;
 	@ElementCollection
-	private List<String> preferencias = new ArrayList<String>();
+	private List<Produto> preferencias = new ArrayList<Produto>();
 
 
 	public Usuario(){
@@ -70,16 +70,16 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public void setPreferencias(List<String> preferencias) {
+	public void setPreferencias(List<Produto> preferencias) {
 		this.preferencias = preferencias;
 	}
 
-	public List<String> getPreferencias() {
+	public List<Produto> getPreferencias() {
 		return preferencias;
 	}
 
-	public void addPreferncia(String nome) {
-		preferencias.add(nome);
+	public void addPreferncia(Produto produto) {
+		preferencias.add(produto);
 	}
 
 }

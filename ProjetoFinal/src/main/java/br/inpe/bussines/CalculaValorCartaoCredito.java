@@ -8,7 +8,7 @@ public class CalculaValorCartaoCredito extends CalculoValor {
 	}
 
 	@Override
-	public double getDesconto() {
+	public double getPorcentagem() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -24,7 +24,7 @@
 						<a href="<c:url value="/logout"/>" class="login_btn">Logout</a>
 					</c:if>
 					<c:if test="${carrinho != null }">
-						<a href="<c:url value="/carrinho/carrinho"/>" class="login_btn">Meu carrinho (${carrinho.quantidadeProdutos})</a>
+						<a href="<c:url value="/carrinho/carrinho"/>" id="meucarrinho" class="login_btn">Meu carrinho (${carrinho.quantidadeProdutos})</a>
 					</c:if>
 				</nav>
 			</div>
