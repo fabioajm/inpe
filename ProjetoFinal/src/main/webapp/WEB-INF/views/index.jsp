@@ -82,7 +82,7 @@
 
 
 	<section class="listings" id="listings">
-		<div class="wrapper">
+		<div class="wrapper"><label style="color: red">${mensagem }</label>
 			<ul class="properties_list">
 			
 				<c:forEach items="${estoques}" var="estoque" varStatus="status">
@@ -91,7 +91,7 @@
 							<a href="#">
 								<img src="<c:url value="/produto/image?id=${estoque.produto.id}"/>" alt="" title="" class="property_img"/>
 							</a>
-							<span class="price">${estoque.produto.preco}</span>
+							<span class="price">R$ ${estoque.produto.preco}</span>
 							<div class="property_details">
 								<h1>
 									<a href="#">${estoque.produto.nome}</a>
@@ -113,6 +113,7 @@
 							</div>
 						</li>
 				</c:forEach>
+				
 								
 			</ul>
 			<div class="more_listing">
@@ -120,6 +121,30 @@
 			</div>
 		</div>
 	</section>	<!--  end listing section  -->
+
+	<c:if test="${usuario != null and ! empty usuario.preferencias }">
+		<section id="preferencias" class="listings">
+
+			<div class="wrapper">
+				<h1>Últimos vistos</h1>
+			<ul class="properties_list">
+					<c:forEach items="${usuario.preferencias}" var="preferencia"
+						varStatus="status">
+						<li><a href="#"> <img class="imgMedium"
+								src="<c:url value="/produto/image?id=${preferencia.produto.id}"/>" alt=""
+								title="" class="property_img" />
+						</a> 
+							<div class="property_details">
+								<h1>
+									<a href="#">${preferencia.produto.nome}</a><br/>
+									<span >R$ ${preferencia.produto.preco}</span>
+								</h1>
+							</div></li>
+					</c:forEach>
+				</ul>
+			</div>
+		</section>
+	</c:if>
 
 	<jsp:include page="footer.jsp" />
 	

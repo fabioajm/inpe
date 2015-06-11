@@ -14,29 +14,53 @@
 </fieldset>
 	<jsp:include page="../adm/header.jsp" />
 
-	<section class="conteudo">
-		<label style="color:red">${mensagem }</label>
-		<fieldset>
-			<legend>Logar</legend>
-			<form method="POST" action="<c:url value="/adm/efetuarLogin"/>" >
-				
-		        Email: <input  type="email"  name="login" required="required"><br />
-				Senha: <input type="password" name="senha" required="required"/>  <br />      
-		        <input type="submit" id="enviar" value="Enviar">
-		    </form>
-		    </fieldset>
-		    <fieldset>
-				<legend>Novo Usuario</legend>
-		    <form method="POST" action="<c:url value="/adm/usuario/save"/>" >
-				
-		        Nome: <input type="text" name="nome" required="required"><br />
-		        Email: <input  type="email"  name="login" required="required"><br />
-				Senha: <input type="password" name="senha" required="required"/>  <br />      
-		        <input type="submit" id="salvar" value="Salvar" >
-		    </form>
-		    </fieldset>
-		    
-	</section>   
+		<section class="conteudo">
+		<div class="wrapper">
+			<label style="color: red">${mensagem }</label>
+			<div id="formCadastros">
+				<div class="formLogin">
+					<h4 class="alinhaTitulo">Logar</h4>
+					<form method="POST" action="<c:url value="/adm/efetuarLogin"/>">
+
+						<div class="alinhaForm">
+							<label>Email</label> <label><input type="email"
+								name="login" required="required"></label>
+						</div>
+						<div class="alinhaForm">
+							<label>Senha</label> <label><input type="password"
+								name="senha" required="required" /></label>
+						</div>
+						<div class="alinhaForm alinhaBt">
+							<input class="pagar_btn" type="submit" id="enviar" value="Enviar">
+						</div>
+					</form>
+				</div>
+				<div class="formLoginNovo">
+
+					<h4 class="alinhaTitulo">Novo Usuário</h4>
+					<form method="POST" action="<c:url value="/adm/usuario/save"/>">
+
+						<div class="alinhaForm">
+							<label>Nome</label> <label><input type="text" name="nome"
+								required="required"></label>
+						</div>
+						<div class="alinhaForm">
+							<label>Email</label> <label><input type="email"
+								name="login" required="required"></label>
+						</div>
+						<div class="alinhaForm">
+							<label>Senha</label> <label><input type="password"
+								name="senha" required="required" /></label>
+						</div>
+						<div class="alinhaForm alinhaBt">
+							<input class="pagar_btn" type="submit" id="salvar" value="Cadastrar">
+						</div>
+					</form>
+				</div>
+				<div id="clearBoth"></div>
+			</div>
+		</div>
+	</section>
 	 
 	<jsp:include page="../footer.jsp" />
 </body>

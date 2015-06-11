@@ -25,7 +25,8 @@
 									<a href="#">${estoque.produto.nome}</a>
 								</h1>
 								<h2>${estoque.produto.descricao } </h2>
-								<a href="remove?id=${estoque.produto.id}"><h2>remover</h2></a>
+								<a href="<c:url value="/produto/remove?id=${estoque.produto.id}"/>"><h2>Remover</h2></a>
+								<a href="<c:url value="/produto/update?id=${estoque.produto.id}"/>"><h2>Ataulizar</h2></a>
 								Qauntidade em estoque: ${estoque.quantidade }
 								<form action="<c:url value="/produto/estoque/adicionar"/>">
 									<input type="hidden" value="${estoque.produto.id}" name="id" />

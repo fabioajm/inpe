@@ -128,7 +128,7 @@
 
 					<div id="clearBoth"></div>
 				</div>
-				<div class=""><input type="button" class="pagar_btn" value="Finalizar Compra"> </div>
+				<div class=""><a href="<c:url value="/carrinho/finalizar"/> " class="pagar_btn">Finalizar Compra</a> </div>
 				</form>
 			</div>
 		</form>

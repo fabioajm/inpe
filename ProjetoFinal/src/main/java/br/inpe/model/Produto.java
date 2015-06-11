@@ -1,12 +1,10 @@
 package br.inpe.model;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 
 @Entity
 public class Produto {
@@ -28,6 +26,13 @@ public class Produto {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+	}
+
+	public Produto(String nome, String descricao, double preco, byte[] poster) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.poster = poster;
 	}
 
 	public Integer getId() {

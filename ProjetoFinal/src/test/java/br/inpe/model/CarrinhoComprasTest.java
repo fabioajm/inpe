@@ -144,7 +144,7 @@ public class CarrinhoComprasTest {
 	}
 	
 	@Test
-	public void notificarRemocaoEsvaziarCarrinho(){
+	public void notificarEsvaziarCarrinho(){
 		Produto produto = new Produto(1, "Filme", 250.0);
 		MockCarrinhoObserver co = new MockCarrinhoObserver();
 		carrinho.adicionarObserver(co);
@@ -154,7 +154,7 @@ public class CarrinhoComprasTest {
 	}
 	
 	@Test
-	public void carrinhoTotalAPagarSemTipoPagamento(){
+	public void totalAPagarSemTipoPagamento(){
 		Produto produto = new Produto(1, "Filme", 250.0);
 		carrinho.addProduto(produto, 4);
 		assertEquals(1000.0,carrinho.getTotalAPagar(),0.001);

@@ -1,5 +1,6 @@
 package br.inpe.service;
 
+import br.inpe.model.Preferencia;
 import br.inpe.model.Usuario;
 
 public interface UsuarioService {
@@ -13,5 +14,7 @@ public interface UsuarioService {
 	public abstract Usuario find(Long id);
 
 	public abstract void merge(Usuario usuario);
+
+	public abstract void salvarPreferencia(Preferencia pref);
 
 }

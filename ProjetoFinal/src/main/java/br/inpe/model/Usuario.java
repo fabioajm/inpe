@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Usuario {
@@ -21,14 +21,15 @@ public class Usuario {
 	private String login;
 	@Column(nullable=false)
 	private String senha;
-	@ElementCollection
-	private List<Produto> preferencias = new ArrayList<Produto>();
+	@Transient
+	private List<Preferencia> preferencias = new ArrayList<Preferencia>();
 
 
 	public Usuario(){
 	}
 	
-	public Usuario(String login) {
+	public Usuario(Long id,String login) {
+		this.id = id;
 		this.login = login;
 	}
 
@@ -70,16 +71,41 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public void setPreferencias(List<Produto> preferencias) {
+	public void setPreferencias(List<Preferencia> preferencias) {
 		this.preferencias = preferencias;
 	}
 
-	public List<Produto> getPreferencias() {
+	public List<Preferencia> getPreferencias() {
 		return preferencias;
 	}
 
-	public void addPreferncia(Produto produto) {
-		preferencias.add(produto);
+	public void addPreferncia(Preferencia preferencia) {
+		preferencias.add(preferencia);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

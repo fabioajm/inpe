@@ -33,8 +33,8 @@ public class CarrinhoComprasService {
 	}
 	public CarrinhoCompras criarCarrinho(Usuario u) {
 		CarrinhoCompras cc;
-		u = usuarioService.find(u.getId());
 		cc = new CarrinhoCompras();
+		cc.setUsuario(u);
 		cc.adicionarObserver(new AtualizaEstoqueObserver(estoqueService));
 		cc.adicionarObserver(new PreferenciasUsuarioObserver(u, usuarioService));
 		return cc;

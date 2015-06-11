@@ -28,10 +28,16 @@ th {
 	<jsp:include page="../header.jsp" />
 
 	<section class="conteudo">
+	<div class="wrapper"> 
 		<c:if test="${not empty carrinho.produtos }">
+		<div class="tituloPagina">
+					<h3>Dados do seu pedido!</h3>
+				</div>
+		<div id="tabelaCarrinho">
 			<table>
 				<tr>
-					<th>Produto</th>
+	
+					<th>Imagem</th>
 					<th>Descrição</th>
 					<th>Preço Unitario</th>
 					<th>Quantidade</th>
@@ -39,32 +45,34 @@ th {
 				</tr>
 				<c:forEach items="${carrinho.produtos}" var="entry">
 					<tr>
-						<td><img src="/ProjetoFinal/produto/image?id=${entry.key.id}"
-							class="imgMinun"></td>
-						<td>${entry.key.nome}</td>
-						<td>R$ ${entry.key.preco}</td>
-						<td>${entry.value}</td>
-						<td>R$ ${entry.key.preco * entry.value}</td>
+						<td class="image"><img src="/ProjetoFinal/produto/image?id=${entry.key.id}" class="imgMedium"></td>
+						<td class="alinhaTopo descricao"><h2>${entry.key.nome}</h2>
+							${entry.key.descricao } </td>
+						<td class="alinhaMeio textoCentro">R$ ${entry.key.preco}</td>
+						<td class="alinhaMeio textoCentro">${entry.value}</td>
+						<td class="alinhaMeio textoCentro">R$ ${entry.key.preco * entry.value}</td>
 					</tr>
 				</c:forEach>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>frete gratis</td>
-					<td>R$ ${carrinho.total}</td>
-					<td>Desconto R$ ${carrinho.desconto}</td>
-					<td>Total R$ ${carrinho.totalAPagar}</td>
+					<td colspan="4"></td>
+					<td class="alinhaMeio textoCentro">R$ ${carrinho.total}</td>
+				</tr>
+				<tr>
+					<td colspan="4"></td>
+					<td class="alinhaMeio textoCentro">R$ ${carrinho.desconto}</td>
+				</tr>
+				<tr>
+					<td colspan="4"></td>
+					<td class="alinhaMeio textoCentro">R$ ${carrinho.totalAPagar}</td>
 				</tr>
 			</table>
+			</div>
 
-			<form action="/carrinho/finalizar">
-			<a href="#" onclick="$(this).closest('form').submit()" class="pagar_btn">Finalizar</a>
-			</form>
-		</c:if>
+		</c:if> 
 		<c:if test="${empty carrinho.produtos}">
-			<h1>Seu carrinho esta vazio!</h1>
-		</c:if>
+			<h1>Não existe pedido!</h1>
+		</c:if> 
+		</div>
 	</section>
 
 	<jsp:include page="../footer.jsp" />

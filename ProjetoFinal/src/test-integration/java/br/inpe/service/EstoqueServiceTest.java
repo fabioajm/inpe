@@ -24,6 +24,7 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @ActiveProfiles("test")
+@DatabaseSetup(value= "/xml/cleanAll.xml")
 public class EstoqueServiceTest {
 	
 	@Autowired

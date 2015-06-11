@@ -25,6 +25,7 @@ import br.inpe.service.EstoqueService;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @ActiveProfiles("test")
+@DatabaseSetup(value= "/xml/cleanAll.xml")
 public class TestAtualizaEstoqueObserver {
 	
 	private Produto produto = new Produto(1, "Filme", 250.0);

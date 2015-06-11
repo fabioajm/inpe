@@ -39,6 +39,10 @@ public class GenericRepository <T, I extends Serializable> {
 		return entityManager.find(clazz, id);
 	}
 	
+	public T getReference(I id) {
+		return entityManager.getReference(clazz, id);
+	}
+	
 	public List<T> findAll() {
 		Query query = entityManager.createQuery("from " + clazz.getName());
 

@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,11 +34,19 @@ public class CarrinhoCompras {
 	private Usuario usuario;
 	@Transient
 	private List<CarrinhoObserver> observer = new ArrayList<>();
-
+	@Enumerated(EnumType.STRING)
 	private TipoPagamento tipoPagamento;
 
 	public Long getId() {
 		return id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Map<Produto, Integer> getProdutos() {

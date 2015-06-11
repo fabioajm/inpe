@@ -5,6 +5,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.inpe.enums.TipoPagamento;
@@ -54,20 +56,30 @@ public class CarrinhoController {
 		return "carrinho/carrinho";
 	}
 	
-	@RequestMapping("/pagar")
-	public String pagar(TipoPagamento tipo, HttpSession session){
+	@RequestMapping("/finalizar")
+	public String pagar(Model model, HttpSession session){
 		CarrinhoCompras cc = (CarrinhoCompras) session.getAttribute("carrinho");
-		cc.setPagamento(tipo);
-		return "carrinho/pagar";
+		carrinhoComprasService.save(cc);
+		session.removeAttribute("carrinho");
+		model.addAttribute("carrinho", cc);
+		return "carrinho/pedido";
 	}
 	
 	@RequestMapping("/checkout")
 	public String checkout(TipoPagamento tipo, HttpSession session){
+		CarrinhoCompras cc = (CarrinhoCompras) session.getAttribute("carrinho");
 		if(tipo != null){
-			CarrinhoCompras cc = (CarrinhoCompras) session.getAttribute("carrinho");
 			cc.setPagamento(tipo);
+		}else{
+			cc.setPagamento(TipoPagamento.CARTAO_CREDITO);
 		}
 		return "carrinho/checkout";
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public String error(Exception e, Model model){
+		model.addAttribute("mensagem", e.getMessage());
+		return "redirect:/index#listings";
 	}
 
 }

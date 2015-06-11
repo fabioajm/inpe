@@ -23,7 +23,8 @@ public class CarrinhoIntegracao {
 		//cria objetos
 		Produto p = new Produto(4, "Filme", 250.0);
 		EstoqueMock.getInstance().addEstoque(p, 10);
-		Usuario u = new Usuario("Fabio");
+		Usuario u = new Usuario(20l, "Fabio");
+		Preferencia pref = new Preferencia(u, p);
 		
 		
 		//cria carrinho com observers
@@ -31,14 +32,14 @@ public class CarrinhoIntegracao {
 		cc.adicionarObserver(new AtualizaEstoqueObserverMock());
 		UsuarioService uServiceMock = ctx.mock(UsuarioService.class);
 		ctx.checking(new Expectations() {{
-			oneOf(uServiceMock).merge(u);
+			oneOf(uServiceMock).salvarPreferencia(pref);
 		}});
 		cc.adicionarObserver(new PreferenciasUsuarioObserver(u, uServiceMock));
 		
 		cc.addProduto(p, 5);
 		cc.removeProduto(p, 3);
 		
-		assertTrue(u.getPreferencias().contains(p));
+		assertTrue(u.getPreferencias().contains(pref));
 		assertEquals(8, EstoqueMock.getInstance().getQuantidade(p));
 		assertEquals(500.0, cc.getTotal(), 0.001);
 	}

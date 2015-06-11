@@ -1,7 +1,5 @@
 package br.inpe.controller;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -50,12 +48,13 @@ public class ProdutoController {
 		if(u == null){
 			return "adm/login";
 		}
-		produto = produtoService.findById(produto.getId());
-		int quantidade = estoqueService.getQuantidade(produto);
-		estoqueService.removeEstoque(produto, quantidade);
-		produtoService.remove(produto);
+		
+		produtoService.remover(produto);
+		
 		return "redirect:/adm";
 	}
+
+	
 	
 	@RequestMapping("/create")
 	public String newproduto(Model model, HttpSession session){
@@ -76,29 +75,22 @@ public class ProdutoController {
 		
 		model.addAttribute("produto",produto);
 		model.addAttribute("qtd", estoqueService.getQuantidade(produto));
-		return "produto/update";
+		return "produto/create";
 	}
 
 	@RequestMapping("/save")
 	public String create(Produto produto, Integer qtd,  HttpSession session,
-			@RequestParam(value = "image", required = false) MultipartFile image, HttpServletRequest request) throws IOException {
+			@RequestParam(value = "image", required = false) MultipartFile image, HttpServletRequest request) {
 		
 		Usuario u = (Usuario) session.getAttribute("usuarioAdm");
 		if(u == null){
 			return "adm/login";
 		}
-		if(produto.getId() != null){
-			produto = produtoService.findById(produto.getId());
-			int quantidade = estoqueService.getQuantidade(produto);
-			estoqueService.removeEstoque(produto, quantidade);
-		}
-		if(image.getBytes() != null && image.getBytes().length > 0){
-			produto.setPoster(image.getBytes());
-		}
-		produtoService.saveOrUpdate(produto);
-		estoqueService.addEstoque(produto, qtd);
-		return "forward:list";
+		produtoService.salvarOuAtualizar(produto, qtd, image);
+		return "redirect:/adm";
 	}
+
+	
 
 	@RequestMapping("/image")
 	@ResponseBody
@@ -112,9 +104,9 @@ public class ProdutoController {
 	public String adicionar(Produto produto, Integer qtd, HttpSession session){
 		Usuario u = (Usuario) session.getAttribute("usuarioAdm");
 		if(u == null){
-			return "adm/login";
+			return "rediret/adm/login";
 		}
-		produto = produtoService.findById(produto.getId());
+		
 		estoqueService.addEstoque(produto, qtd);
 		
 		return "redirect:/adm";

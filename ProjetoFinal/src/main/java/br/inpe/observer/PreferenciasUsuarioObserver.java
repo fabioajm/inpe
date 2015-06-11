@@ -1,5 +1,6 @@
 package br.inpe.observer;
 
+import br.inpe.model.Preferencia;
 import br.inpe.model.Produto;
 import br.inpe.model.Usuario;
 import br.inpe.service.UsuarioService;
@@ -18,8 +19,9 @@ public class PreferenciasUsuarioObserver implements CarrinhoObserver {
 
 	@Override
 	public void notificarAdicao(Produto p, int qtd) {
-		usuario.addPreferncia(p);
-		usuarioService.merge(usuario);
+		Preferencia pref = new Preferencia(usuarioService.find(usuario.getId()), p);
+		usuario.addPreferncia(pref);
+		usuarioService.salvarPreferencia(pref);
 	}
 
 	@Override
