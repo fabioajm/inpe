@@ -17,7 +17,7 @@ public class Produto {
 	private String descricao;
 	private double preco;
 //	@Lob
-	@Column(length=10000)
+	@Column(length=500000)//alteração para funcionar no banco H2
 	private byte[] poster;
 
 	public Produto(){}
