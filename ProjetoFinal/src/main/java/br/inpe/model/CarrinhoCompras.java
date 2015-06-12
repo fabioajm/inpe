@@ -41,10 +41,6 @@ public class CarrinhoCompras {
 		return id;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}

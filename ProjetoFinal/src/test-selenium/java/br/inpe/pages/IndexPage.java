@@ -17,6 +17,7 @@ public class IndexPage {
 
 	public IndexPage visita() {
 		driver.get("http://localhost:8080/ProjetoFinal");
+		driver.manage().window().maximize();
 		return this;
 	}
 

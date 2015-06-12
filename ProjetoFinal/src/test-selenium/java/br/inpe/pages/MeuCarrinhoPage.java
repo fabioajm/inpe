@@ -12,14 +12,14 @@ public class MeuCarrinhoPage {
 		this.driver = driver;
 	}
 	
-	public boolean carrinhoValorTotal(double valor) {
+	public boolean valorTotal(double valor) {
 		return driver.getPageSource().contains("R$ " + valor);
 	}
 
-	public CheckOutPage checkout() {
+	public PagamentoPage pagar() {
 		WebElement checkout = driver.findElement(By.className("pagar_btn"));
 		checkout.click();
-		return new CheckOutPage(driver);
+		return new PagamentoPage(driver);
 	}
 
 }

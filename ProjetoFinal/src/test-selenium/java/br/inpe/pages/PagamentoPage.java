@@ -7,11 +7,11 @@ import org.openqa.selenium.support.ui.Select;
 
 import br.inpe.enums.TipoPagamento;
 
-public class CheckOutPage {
+public class PagamentoPage {
 
 	private WebDriver driver;
 
-	public CheckOutPage(WebDriver driver) {
+	public PagamentoPage(WebDriver driver) {
 		this.driver = driver;
 	}
 

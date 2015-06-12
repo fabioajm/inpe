@@ -22,15 +22,15 @@ public class TestPreferenciasUsuarioObserverMock {
 	public void adicaoPrefernciasUsuario(){
 		Usuario u = new Usuario(20l,"fabio");
 		Produto p = new Produto(1, "Filme", 250.0);
-		Preferencia pref= new Preferencia(u,p);
 		
 		UsuarioService uServiceMock = ctx.mock(UsuarioService.class);
 		ctx.checking(new Expectations() {{
-			oneOf(uServiceMock).salvarPreferencia(pref);
+			oneOf(uServiceMock).find(20l);
+			oneOf(uServiceMock).salvarPreferencia(with(any(Preferencia.class)));
 		}});
 		CarrinhoObserver co = new PreferenciasUsuarioObserver(u, uServiceMock);
 		co.notificarAdicao(p, 5);
-		assertTrue(u.getPreferencias().contains(pref));
+		assertTrue(u.getPreferencias().get(0).getProduto().equals(p));
 	}
 	
 }

@@ -20,14 +20,13 @@ public class EstoqueServiceImpl implements EstoqueService {
 	@Autowired
 	private EstoqueRepository estoqueRepository;
 	
-	
 	@Override
 	public void addEstoque(Produto p, int qtd){
 		Estoque e = estoqueRepository.getEstoque(p);
 		if(e != null){
 			qtd += e.getQuantidade();
 			e.setQuantidade(qtd);
-			estoqueRepository.merger(e);
+			estoqueRepository.merge(e);
 		}else{
 			e = new Estoque();
 			e.setProduto(p);
@@ -46,7 +45,7 @@ public class EstoqueServiceImpl implements EstoqueService {
 		} else {
 			qtd = e.getQuantidade() - qtd;
 			e.setQuantidade(qtd);
-			estoqueRepository.merger(e);
+			estoqueRepository.merge(e);
 		}
 	}
 	

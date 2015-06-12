@@ -82,10 +82,10 @@ public class LoginController {
 		try{
 			usuarioService.save(usuario);
 			session.setAttribute("usuarioAdm", usuario);
-			return "redirect:/index";
+			return "redirect:/adm";
 		}catch(UsuarioException e){
 			model.addAttribute("mensagem", e.getMessage());
-			return "/login";
+			return "/adm";
 		}
 	}
 

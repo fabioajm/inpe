@@ -22,13 +22,21 @@ public class Produto {
 
 	public Produto(){}
 	
-	public Produto(int id, String nome, double preco) {
+	public Produto(Integer id, String nome, double preco) {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 	}
 
 	public Produto(String nome, String descricao, double preco, byte[] poster) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.poster = poster;
+	}
+	
+	public Produto(Integer id, String nome, String descricao, double preco, byte[] poster) {
+		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;

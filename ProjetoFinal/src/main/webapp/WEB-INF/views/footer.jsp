@@ -30,9 +30,9 @@
 				<li class="about">
 					<p>Projeto de software utilizando TDD</p>
 					<ul>
-						<li><a href="http://facebook.com/pixelhint" class="facebook" target="_blank"></a></li>
-						<li><a href="http://twitter.com/pixelhint" class="twitter" target="_blank"></a></li>
-						<li><a href="http://plus.google.com/+Pixelhint" class="google" target="_blank"></a></li>
+						<li><a href="http://facebook.com" class="facebook" target="_blank"></a></li>
+						<li><a href="http://twitter.com/fabio_ajm" class="twitter" target="_blank"></a></li>
+						<li><a href="https://plus.google.com/+FabioAlvesdeOliveira" class="google" target="_blank"></a></li>
 						<li><a href="#" class="skype"></a></li>
 					</ul>
 				</li>
@@ -40,6 +40,6 @@
 		</div>
 
 		<div class="copyrights wrapper">
-			Copyright Â© 2015 <a href="http://pixelhint.com" target="_blank" class="ph_link" title="Download more free Templates">Pixelhint.com</a>. All Rights Reserved.
+			Copyright © 2015 <a href="http://pixelhint.com" target="_blank" class="ph_link" title="Download more free Templates">Pixelhint.com</a>. All Rights Reserved.
 		</div>
 	</footer><!--  end footer  -->

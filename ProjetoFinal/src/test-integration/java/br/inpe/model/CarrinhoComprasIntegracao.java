@@ -57,9 +57,7 @@ public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4Spring
 		Usuario u = usuarioService.buscarPorLogin("fabio@gmail.com");
 		
 		//cria carrinho com observers
-		CarrinhoCompras cc = new CarrinhoCompras();
-		cc.adicionarObserver(new AtualizaEstoqueObserver(estoqueService));
-		cc.adicionarObserver(new PreferenciasUsuarioObserver(u, usuarioService));
+		CarrinhoCompras cc = ccService.criarCarrinho(u);
 		
 		cc.addProduto(p, 5);
 		cc.removeProduto(p, 3);
@@ -69,7 +67,7 @@ public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4Spring
 		cc = ccService.find(cc.getId());
 //		Hibernate.initialize(cc.getProdutos());
 		
-		assertTrue(u.getPreferencias().contains("Filme"));
+		assertEquals(1, u.getPreferencias().size());
 		assertEquals(8, estoqueService.getQuantidade(p));
 		assertEquals(500.0, cc.getTotal(), 0.001);
 	}
@@ -82,9 +80,7 @@ public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4Spring
 		Usuario u = usuarioService.buscarPorLogin("fabio@gmail.com");
 		
 		//cria carrinho com observers
-		CarrinhoCompras cc = new CarrinhoCompras();
-		cc.adicionarObserver(new AtualizaEstoqueObserver(estoqueService));
-		cc.adicionarObserver(new PreferenciasUsuarioObserver(u, usuarioService));
+		CarrinhoCompras cc = ccService.criarCarrinho(u);
 		
 		cc.addProduto(p, 5);
 		cc.removeProduto(p, 3);
@@ -94,7 +90,7 @@ public class CarrinhoComprasIntegracao extends AbstractTransactionalJUnit4Spring
 		
 		cc = ccService.find(cc.getId());
 		
-		assertTrue(u.getPreferencias().contains("Filme"));
+		assertEquals(2,u.getPreferencias().size());
 		assertEquals(8, estoqueService.getQuantidade(p));
 		assertEquals(1000.0, cc.getTotal(), 0.001);
 	}

@@ -31,8 +31,8 @@
 						<td>${produto.preco }</td>
 						<td><img src="/ProjetoFinal/produto/image?id=${produto.id}">
 						</td>
-						<td><a href="<c:url value="/produto/remove?id=${produto.id}" />"><u>remover</u></a><br /> <a
-							href="<c:url value="/produto/update?id=${produto.id}" />"><u>atualizar</u></a></td>
+						<td><a href="<c:url value="/produto/remove?id=${produto.id}" />"><h3>remover</h3></a><br /> <a
+							href="<c:url value="/produto/update?id=${produto.id}" />"><h3>atualizar</h3></a></td>
 							
 							
 					</tr>

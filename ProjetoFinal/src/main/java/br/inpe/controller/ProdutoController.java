@@ -1,6 +1,7 @@
 package br.inpe.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
@@ -53,8 +54,6 @@ public class ProdutoController {
 		
 		return "redirect:/adm";
 	}
-
-	
 	
 	@RequestMapping("/create")
 	public String newproduto(Model model, HttpSession session){
@@ -79,18 +78,22 @@ public class ProdutoController {
 	}
 
 	@RequestMapping("/save")
-	public String create(Produto produto, Integer qtd,  HttpSession session,
-			@RequestParam(value = "image", required = false) MultipartFile image, HttpServletRequest request) {
+	public String create(Produto produto, Integer qtd,  HttpSession session, Model model,
+			@RequestParam(value = "image", required = false) MultipartFile image) {
 		
 		Usuario u = (Usuario) session.getAttribute("usuarioAdm");
 		if(u == null){
 			return "adm/login";
 		}
-		produtoService.salvarOuAtualizar(produto, qtd, image);
+		try {
+			produtoService.salvarOuAtualizar(produto, qtd, image.getBytes());
+		} catch (IOException e) {
+			model.addAttribute("mensagem", "Problemas com a imagem" + e.getMessage());
+			model.addAttribute("produto", produto);
+			return "produto/create";
+		}
 		return "redirect:/adm";
 	}
-
-	
 
 	@RequestMapping("/image")
 	@ResponseBody
@@ -112,8 +115,8 @@ public class ProdutoController {
 		return "redirect:/adm";
 	}
 	
-	@ExceptionHandler(Throwable.class)
-	public String error(Throwable e, Model model){
+	@ExceptionHandler(Exception.class)
+	public String error(Exception e, Model model){
 		model.addAttribute("mensagem", e.getMessage());
 		return "produto/create";
 	}

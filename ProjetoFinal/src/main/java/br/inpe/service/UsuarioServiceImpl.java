@@ -53,7 +53,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public void merge(Usuario usuario) {
-		usuarioRepository.merger(usuario);
+		usuarioRepository.merge(usuario);
 	}
 
 	@Override

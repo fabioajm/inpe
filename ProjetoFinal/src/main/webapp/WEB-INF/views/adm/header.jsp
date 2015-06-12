@@ -8,10 +8,11 @@
 					<label style="color:#fff;">Olá, ${usuarioAdm.nome}</label> 
 				</c:if>
 				</div>
-				<a href="<c:url value="/adm"/>"><img src="<c:url value="/img/logo.png"/>" class="logo" alt="" title=""/></a>
+				<a href="<c:url value="/index"/>"><img src="<c:url value="/img/logo.png"/>" class="logo" alt="" title=""/></a>
 				<a href="#" class="hamburger"></a>
 				<nav>
 					<ul>
+						<li><a href="<c:url value="/adm"/>">Home Administração</a></li>
 						<li><a href="<c:url value="/produto/create"/>">Cadastrar Produto</a></li>
 						<li><a href="<c:url value="/produto/list"/>">Listar Produtos</a></li>
 						<li><a href="#">Sobre</a></li>
